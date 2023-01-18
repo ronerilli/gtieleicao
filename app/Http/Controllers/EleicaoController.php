@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Eleicao;
-use App\Eleitor;
+use App\Models\Eleicao;
 use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\Reader\Xls;
 
 class EleicaoController extends Controller
 {
@@ -16,45 +14,52 @@ class EleicaoController extends Controller
 
     public function salvar(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'nome' => 'required',
             'orgao' => 'required',
-            'chapas' => 'required|numeric',
-            'eleitores' => 'required|mimes:xls,xlsx'
-
         ]);
 
         $eleicao = new Eleicao();
         $eleicao->nome = $request->nome;
         $eleicao->orgao = $request->orgao;
         $eleicao->user_id = auth()->id();
-        $eleicao->save();
 
+        if($eleicao->save()) {
+            return redirect()->route('home')->with('success', 'Eleição cadastrada com sucesso!');
+        } else {
+            return redirect()->route('cadastrar-eleicao')->withErrors(['msg'=>'Erro ao cadastrar eleição']);
+        }
     }
 
     public function listarEleicoes()
-    {
-        $userId = auth()->id();
-        $eleicoes = Eleicao::where('user_id', $userId)->get();
-        return view('listar-eleicoes', ['eleicoes' => $eleicoes]);
+{
+    $userId = auth()->id();
+    $eleicoes = Eleicao::where('user_id', $userId)->get();
+    if ($eleicoes->count() == 0) {
+        return view('listar-eleicoes', ['eleicoes' => [], 'vazio' => true]);
+    } else {
+        return view('listar-eleicoes', ['eleicoes' => $eleicoes, 'vazio' => false]);
     }
+}
+
 
     public function editar($id)
     {
         $eleicao = Eleicao::where([
         ['id', $id],
         ['user_id', auth()->id()]])->first();
-        return view('editar-eleicao', compact('eleicao'));
+        return redirect()->route('editar-eleicao', ['id' => $id]);
     }
 
     public function atualizar(Request $request, $id)
     {
+        dd($id);
         $eleicao = Eleicao::where([
         ['id', $id],
         ['user_id', auth()->id()]
         ])->first();
         $eleicao->update($request->all());
-        return redirect()->route('listar-eleicoes');
+        return redirect()->route('editar-eleicao', ['id' => $id]);
     }
 
 }

@@ -2,6 +2,9 @@
 
 @section('content')
 
+@error('msg')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
 <!-- arquivo: resources/views/cadastrar-eleicao.blade.php -->
 <!DOCTYPE html>
 <html>
