@@ -16,8 +16,8 @@
         <input type="text" id="nome" name="nome" required><br>
         <label for="orgao">Nome do Órgão:</label>
         <input type="text" id="orgao" name="orgao" required><br>
-        <label for="chapas">Quantidade de Chapas:</label>
-        <input type="number" id="chapas" name="chapas" required><br>
+        {{-- <label for="chapas">Quantidade de Chapas:</label>
+        <input type="number" id="chapas" name="chapas" required><br> --}}
         <input type="submit" value="Cadastrar">
     </form>
 </body>

@@ -8,12 +8,12 @@ use Auth;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function loginAdmin()
     {
-        return view('login');
+        return view('login-administrador');
     }
 
-    public function authenticate(Request $request)
+    public function authenticateAdmin(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -22,17 +22,39 @@ class AuthController extends Controller
             return redirect()->intended('/home');
         }
         else {
-            print 'Matrícula ou senha inválidos';
-            return redirect()->intended('/login');
+            return redirect()->intended('login-administrador')->with('error', 'E-mail ou senha inválidos');
         }
     }
+
+    public function authenticateEleitor(Request $request)
+    {
+        $credentials = $request->only('matricula');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('/home');
+        }
+        else {
+            print 'Matrícula ou senha inválidos';
+            return redirect()->intended('login-administrador');
+        }
+    }
+
+
 
     public function handle($request, Closure $next)
     {
         if (!Auth::check()) {
-            return redirect()->route('login');
+            return redirect('/');
         }
         return $next($request);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
 
 }

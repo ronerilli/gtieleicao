@@ -27,7 +27,6 @@ class EleicaoController extends Controller
         $eleicao = new Eleicao();
         $eleicao->nome = $request->nome;
         $eleicao->orgao = $request->orgao;
-        $eleicao->chapas = $request->chapas;
         $eleicao->user_id = auth()->id();
         $eleicao->save();
 
