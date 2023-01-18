@@ -16,10 +16,9 @@
         <tr>
             <td>{{ $eleicao->nome }}</td>
             <td>{{ $eleicao->orgao }}</td>
-            <td>{{ $eleicao->chapas }}</td>
             <td>
-                <a href="{{ route('eleicoes.edit', $eleicao->id) }}" class="btn btn-warning">Editar</a>
-                <form action="{{ route('eleicoes.destroy', $eleicao->id) }}" method="POST" class="d-inline">
+                <a href="{{ route('editar-eleicao', $eleicao->id) }}" class="btn btn-warning">Editar</a>
+                <form action="{{ route('excluir-eleicao', $eleicao->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Excluir</button>
@@ -29,5 +28,5 @@
         @endforeach
     </tbody>
 </table>
-
+<a href="{{ route('home') }}" class="btn btn-primary">Voltar para Home</a>
 @endsection

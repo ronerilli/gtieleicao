@@ -38,8 +38,9 @@ Route::get('/cadastrar-eleicao', 'App\Http\Controllers\EleicaoController@cadastr
 Route::post('/salvar-eleicao', 'App\Http\Controllers\EleicaoController@salvar')->name('salvar-eleicao');
 Route::get('/listar-eleicoes', 'App\Http\Controllers\EleicaoController@listarEleicoes')->name('listar-eleicoes');
 Route::get('/editar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@editar')->name('editar-eleicao');
+Route::put('/atualizar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@atualizar')->name('atualizar-eleicao');
+Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('excluir-eleicao');
 
-Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('destroy');
 
 /* Route::get('/eleicao/{id}/candidatos/novo', 'CandidatoController@novo')->name('novo-candidato');
 Route::post('/eleicao/{id}/candidatos/salvar', 'CandidatoController@salvar')->name('salvar-candidato'); */

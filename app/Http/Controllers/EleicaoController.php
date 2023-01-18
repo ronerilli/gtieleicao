@@ -59,7 +59,15 @@ class EleicaoController extends Controller
         ['user_id', auth()->id()]
         ])->first();
         $eleicao->update($request->all());
-        return redirect()->route('editar-eleicao', ['id' => $id]);
+        return redirect()->route('listar-eleicoes', ['id' => $id]);
     }
+
+    public function excluir($id)
+    {
+        $eleicao = Eleicao::find($id);
+        $eleicao->delete();
+        return redirect()->route('listar-eleicoes')->with('success', 'Eleição excluída com sucesso.');
+    }
+
 
 }
