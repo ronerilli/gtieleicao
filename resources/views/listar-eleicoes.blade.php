@@ -7,7 +7,6 @@
         <tr>
             <th>Nome</th>
             <th>Órgão</th>
-            <th>Chapas</th>
             <th>Ações</th>
         </tr>
     </thead>
