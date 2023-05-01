@@ -24,18 +24,13 @@
             </div>
 
             <div class="form-group">
-                <label for="descricao">Descrição</label>
-                <textarea class="form-control" id="descricao" name="descricao">{{ old('descricao', $eleicao->descricao) }}</textarea>
+                <label for="data_inicio">Data de Início</label>
+                <input type="datetime-local" class="form-control" id="data_inicio" name="data_inicio" value="{{ old('data_inicio', $eleicao->data_inicio->format('Y-m-d\TH:i:s')) }}">
             </div>
 
             <div class="form-group">
-                <label for="data_hora_inicio">Data de Início</label>
-                <input type="datetime-local" class="form-control" id="data_hora_inicio" name="data_hora_inicio" value="{{ old('data_hora_inicio', $eleicao->data_hora_inicio->format('Y-m-d\TH:i:s')) }}">
-            </div>
-
-            <div class="form-group">
-                <label for="data_hora_fim">Data de Término</label>
-                <input type="datetime-local" class="form-control" id="data_hora_fim" name="data_hora_fim" value="{{ old('data_hora_fim', $eleicao->data_hora_fim->format('Y-m-d\TH:i:s')) }}">
+                <label for="data_fim">Data de Término</label>
+                <input type="datetime-local" class="form-control" id="data_fim" name="data_fim" value="{{ old('data_fim', $eleicao->data_fim->format('Y-m-d\TH:i:s')) }}">
             </div>
 
             <div class="form-group">
@@ -80,7 +75,7 @@
         });
     </script>
 
-
+@endsection
 
 
 

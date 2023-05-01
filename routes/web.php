@@ -20,6 +20,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+
 //Rotas de cadastro de usuario
 Route::get('/create', 'App\Http\Controllers\UserController@create')->name('create');
 Route::post('/store', 'App\Http\Controllers\UserController@store')->name('store');

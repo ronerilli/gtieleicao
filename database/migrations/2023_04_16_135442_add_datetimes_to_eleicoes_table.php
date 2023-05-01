@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('eleicoes', function (Blueprint $table) {
-            $table->dateTime('data_hora_inicio')->nullable();
-            $table->dateTime('data_hora_fim')->nullable();            //
+            $table->dateTime('data_inicio')->nullable();
+            $table->dateTime('data_fim')->nullable();            //
         });
     }
 
