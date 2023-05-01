@@ -22,11 +22,11 @@ Route::get('/', function () {
 
 //Rotas de cadastro de usuario
 Route::get('/create', 'App\Http\Controllers\UserController@create')->name('create');
-Route::post('/create', 'App\Http\Controllers\UserController@store')->name('create');
+Route::post('/store', 'App\Http\Controllers\UserController@store')->name('store');
 
 //Rotas para autenticação do usuario
 Route::get('/login-administrador', 'App\Http\Controllers\AuthController@loginAdmin')->name('login-administrador');
-Route::post('/login-administrador', 'App\Http\Controllers\AuthController@authenticateAdmin')->name('login-administrador');
+Route::post('/login-administrador', 'App\Http\Controllers\AuthController@authenticateAdmin')->name('login-administrador-auth');
 Route::get('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
 
 Route::middleware(['auth'])->group(function () {

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleicao;
+use App\Models\Eleitor;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+
 use Illuminate\Http\Request;
 
 class EleicaoController extends Controller
@@ -32,35 +37,65 @@ class EleicaoController extends Controller
     }
 
     public function listarEleicoes()
-{
-    $userId = auth()->id();
-    $eleicoes = Eleicao::where('user_id', $userId)->get();
-    if ($eleicoes->count() == 0) {
-        return view('listar-eleicoes', ['eleicoes' => [], 'vazio' => true]);
-    } else {
-        return view('listar-eleicoes', ['eleicoes' => $eleicoes, 'vazio' => false]);
+    {
+        $userId = auth()->id();
+        $eleicoes = Eleicao::where('user_id', $userId)->get();
+        if ($eleicoes->count() == 0) {
+            return view('listar-eleicoes', ['eleicoes' => [], 'vazio' => true]);
+        } else {
+            return view('listar-eleicoes', ['eleicoes' => $eleicoes, 'vazio' => false, 'id' => $userId]);
+        }
     }
-}
 
 
     public function editar($id)
     {
+
         $eleicao = Eleicao::where([
         ['id', $id],
         ['user_id', auth()->id()]])->first();
-        return redirect()->route('editar-eleicao', ['id' => $id]);
+
+        //return view('editar-eleicao', ['id' => $id]);
+        return view('editar-eleicao', ['eleicao' => $eleicao]);
     }
+
+
 
     public function atualizar(Request $request, $id)
     {
-        dd($id);
         $eleicao = Eleicao::where([
         ['id', $id],
         ['user_id', auth()->id()]
         ])->first();
         $eleicao->update($request->all());
-        return redirect()->route('listar-eleicoes', ['id' => $id]);
+
+        // Verifica se foi enviado um arquivo
+        if ($request->hasFile('eleitores')) {
+            $spreadsheet = IOFactory::load($request->file('eleitores'));
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            // Itera sobre as linhas da planilha
+            foreach ($worksheet->getRowIterator() as $row) {
+                $rowIndex = $row->getRowIndex();
+                // Pula a primeira linha (cabeçalho)
+                if ($rowIndex > 1) {
+                    $nome = $worksheet->getCellByColumnAndRow(1, $rowIndex)->getValue();
+                    $matricula = $worksheet->getCellByColumnAndRow(2, $rowIndex)->getValue();
+                    $telefone = $worksheet->getCellByColumnAndRow(3, $rowIndex)->getValue();
+
+                    Eleitor::create([
+                    'nome' => $nome,
+                    'matricula' => $matricula,
+                    'telefone' => $telefone,
+                    'eleicao_id' => $id,
+                    ]);
+                }
+            }
+        }
+
+    return redirect()->route('listar-eleicoes', ['id'=> $id]);
     }
+
 
     public function excluir($id)
     {

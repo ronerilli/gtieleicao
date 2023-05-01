@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Eleitor extends Model
+class Chapa extends Model
 {
-    protected $table = 'eleitores';
+    use HasFactory;
+
     protected $fillable = [
-        'nome', 'matricula', 'telefone', 'eleicao_id'
+        'nome',
+        'votos',
+        'eleicao_id'
     ];
 
     public function eleicao()
     {
         return $this->belongsTo(Eleicao::class);
     }
-
-    //public function eleicao() { return $this->belongsTo('App\Eleicao'); }
 }

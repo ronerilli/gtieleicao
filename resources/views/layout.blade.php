@@ -18,7 +18,7 @@
 
     </div>
     <footer>
-        <p>Copyright © Grünti Technology</p>
+        <p>Copyright © Grünti Technology 2023</p>
     </footer>
 </body>
 </html>

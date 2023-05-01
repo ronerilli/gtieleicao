@@ -1,27 +1,86 @@
 @extends('layout')
 
 @section('content')
+    <div class="container">
+        <h1>Editar Eleição</h1>
 
-<!-- arquivo: resources/views/editar-eleicao.blade.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Editar Eleição</title>
-</head>
-<body>
-    <h1>Editar Eleição</h1>
-    <form action="{{ route('atualizar-eleicao', $eleicao->id) }}" method="post" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <label for="nome">Nome da Eleição:</label>
-        <input type="text" id="nome" name="nome" value="{{ $eleicao->nome }}" required><br>
-        <label for="orgao">Nome do Órgão:</label>
-        <input type="text" id="orgao" name="orgao" value="{{ $eleicao->orgao }}" required><br>
-        {{-- <label for="chapas">Quantidade de Chapas:</label>
-        <input type="number" id="chapas" name="chapas" value="{{ $eleicao->chapas }}" required><br> --}}
-        <input type="submit" value="Atualizar">
-    </form>
-</body>
-</html>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-@endsection
+        <form action="{{ route('editar-eleicao', ['id' => $eleicao->id]) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="form-group">
+                <label for="nome">Nome da Eleição</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome', $eleicao->nome) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea class="form-control" id="descricao" name="descricao">{{ old('descricao', $eleicao->descricao) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="data_hora_inicio">Data de Início</label>
+                <input type="datetime-local" class="form-control" id="data_hora_inicio" name="data_hora_inicio" value="{{ old('data_hora_inicio', $eleicao->data_hora_inicio->format('Y-m-d\TH:i:s')) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="data_hora_fim">Data de Término</label>
+                <input type="datetime-local" class="form-control" id="data_hora_fim" name="data_hora_fim" value="{{ old('data_hora_fim', $eleicao->data_hora_fim->format('Y-m-d\TH:i:s')) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="eleitores">Importar Eleitores</label>
+                <input type="file" class="form-control-file" id="eleitores" name="eleitores">
+            </div>
+
+            <hr>
+
+            <h2>Chapas</h2>
+
+            <div class="form-group">
+                <label for="nome_chapa">Nome da Chapa</label>
+                <input type="text" class="form-control" id="nome_chapa" name="nome_chapa">
+            </div>
+
+            <button type="button" class="btn btn-secondary" id="adicionar_chapa">Adicionar Chapa</button>
+
+            <hr>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </form>
+    </div>
+
+    <script>
+        $(function() {
+            var chapa_index = 0;
+
+            $('#adicionar_chapa').click(function() {
+                chapa_index++;
+
+                var html = `
+                    <div class="form-group">
+                        <label for="votos_chapa_${chapa_index}">Votos para a Chapa "${$('#nome_chapa').val()}"</label>
+                        <input type="number" class="form-control" id="votos_chapa_${chapa_index}" name="votos_chapa_${chapa_index}">
+                    </div>
+                `;
+
+                $('#nome_chapa').val('');
+                $('#adicionar_chapa').before(html);
+            });
+        });
+    </script>
+
+
+
+
+
