@@ -21,9 +21,7 @@
               <div class="form-group">
                 <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Eleitor</button>
               </div>
-              <div class="form-group">
-                <a href="{{route('create')}}" class="btn btn-secondary btn-block">Cadastro de Usuário</a>
-              </div>
+              
             </div>
           </div>
         </div>
