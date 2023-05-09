@@ -21,9 +21,7 @@ Route::get('/', function () {
 });
 
 
-//Rotas de cadastro de usuario
-Route::get('/create', 'App\Http\Controllers\UserController@create')->name('create');
-Route::post('/store', 'App\Http\Controllers\UserController@store')->name('store');
+
 
 //Rotas para autenticação do usuario
 Route::get('/login-administrador', 'App\Http\Controllers\AuthController@loginAdmin')->name('login-administrador');
@@ -46,6 +44,9 @@ Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@e
 /* Route::get('/eleicao/{id}/candidatos/novo', 'CandidatoController@novo')->name('novo-candidato');
 Route::post('/eleicao/{id}/candidatos/salvar', 'CandidatoController@salvar')->name('salvar-candidato'); */
 
+//Rotas de cadastro de usuario
+Route::get('/create', 'App\Http\Controllers\UserController@create')->name('create');
+Route::post('/store', 'App\Http\Controllers\UserController@store')->name('store');
 
 });
 

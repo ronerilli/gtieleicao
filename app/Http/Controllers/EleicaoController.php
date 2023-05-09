@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Eleicao;
 use App\Models\Eleitor;
+use App\Models\Chapa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -33,8 +34,7 @@ class EleicaoController extends Controller
         $eleicao->data_fim = $request->data_fim;
         $eleicao->user_id = auth()->id();
 
-        $chapas_data = $request->only('nome_chapa', ); // lista dos campos das chapas (votos_chapa_1, votos_chapa_2, ...)
-        $chapas = [];
+        
 
     if($eleicao->save()) {
             return redirect()->route('home')->with('success', 'Eleição cadastrada com sucesso!');
@@ -57,13 +57,18 @@ class EleicaoController extends Controller
 
     public function editar($id)
     {
+            $eleicao = Eleicao::where([
+                ['id', $id],
+                ['user_id', auth()->id()]
+            ])->first();
 
-        $eleicao = Eleicao::where([
-        ['id', $id],
-        ['user_id', auth()->id()]])->first();
+            $chapa = null; // or an array
+            $chapa = is_array($chapa) ? $chapa : []; // initialize an empty array if $chapa is null
 
-        //return view('editar-eleicao', ['id' => $id]);
-        return view('editar-eleicao', ['eleicao' => $eleicao]);
+            $array = []; // initialize $array as an empty array
+            $array = array_merge($array, $chapa);
+
+            return view('editar-eleicao', ['eleicao' => $eleicao, 'chapas' => $array]);
     }
 
 
@@ -71,10 +76,50 @@ class EleicaoController extends Controller
     public function atualizar(Request $request, $id)
     {
         $eleicao = Eleicao::where([
-        ['id', $id],
-        ['user_id', auth()->id()]
-        ])->first();
-        $eleicao->update($request->all());
+            ['id', $id],
+            ['user_id', auth()->id()]
+        ])->firstOrFail();
+        
+        $eleicao->nome = $request->filled('nome') ? $request->input('nome') : $eleicao->nome;
+        $eleicao->orgao = $request->filled('orgao') ? $request->input('orgao') : $eleicao->orgao;
+        $eleicao->data_inicio = $request->filled('data_inicio') ? $request->input('data_inicio') : $eleicao->data_inicio;
+        $eleicao->data_fim = $request->filled('data_fim') ? $request->input('data_fim') : $eleicao->data_fim;
+        
+        $eleicao->save();
+
+           
+        //Acrescenta chapas cadastradas
+        $chapas = [];
+
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'nome_chapa_') === 0) {
+                $chapa_count = str_replace('nome_chapa_', '', $key);
+                $chapas[] = [
+                    'nome' => $value,
+                    'votos' => 0
+                ];
+            }
+        }
+        
+        foreach ($chapas as $chapa) {
+            $chapa_entity = Chapa::where([
+                ['nome', $chapa['nome']],
+                ['eleicao_id', $eleicao->id],
+            ])->first();
+        
+            if ($chapa_entity) {
+                $chapa_entity->nome = $chapa['nome'];
+                $chapa_entity->save();
+            } else {
+                Chapa::create([
+                    'nome' => $chapa['nome'],
+                    'votos' => 0,
+                    'eleicao_id' => $eleicao->id,
+                ]);
+            }
+        }
+        
+        
 
         // Verifica se foi enviado um arquivo
         if ($request->hasFile('eleitores')) {
@@ -99,8 +144,8 @@ class EleicaoController extends Controller
                 }
             }
         }
-
-    return redirect()->route('listar-eleicoes', ['id'=> $id]);
+    return redirect()->route('listar-eleicoes', ['id'=> $id])->with('success', 'Dados atualizados com sucesso.');
+  
     }
 
 
