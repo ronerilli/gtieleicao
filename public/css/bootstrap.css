@@ -10228,6 +10228,7 @@ a.text-dark:hover, a.text-dark:focus {
   }
   .container {
     min-width: 992px !important;
+    overflow-y: scroll; /* permite a rolagem vertical */
   }
   .navbar {
     display: none;

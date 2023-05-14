@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <footer class="bg-success text-white py-3 fixed-bottom">
+    <!-- <footer class="bg-success text-white py-3 fixed-bottom">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6 text-center text-md-left">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    </footer>
+    </footer> -->
 
 
     

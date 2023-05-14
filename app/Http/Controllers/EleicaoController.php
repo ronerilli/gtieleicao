@@ -57,18 +57,14 @@ class EleicaoController extends Controller
 
     public function editar($id)
     {
-            $eleicao = Eleicao::where([
-                ['id', $id],
-                ['user_id', auth()->id()]
-            ])->first();
+        $eleicao = Eleicao::where([
+            ['id', $id],
+            ['user_id', auth()->id()]
+        ])->firstOrFail();
+        
+        $chapas = $eleicao->chapas()->get();
 
-            $chapa = null; // or an array
-            $chapa = is_array($chapa) ? $chapa : []; // initialize an empty array if $chapa is null
-
-            $array = []; // initialize $array as an empty array
-            $array = array_merge($array, $chapa);
-
-            return view('editar-eleicao', ['eleicao' => $eleicao, 'chapas' => $array]);
+        return view('editar-eleicao', compact('eleicao', 'chapas'));
     }
 
 
@@ -96,26 +92,29 @@ class EleicaoController extends Controller
                 $chapa_count = str_replace('nome_chapa_', '', $key);
                 $chapas[] = [
                     'nome' => $value,
-                    'votos' => 0
+                    'votos' => 0,
+                    'eleicao_id' => $eleicao->id // adiciona o ID da eleição
                 ];
             }
         }
         
         foreach ($chapas as $chapa) {
-            $chapa_entity = Chapa::where([
-                ['nome', $chapa['nome']],
-                ['eleicao_id', $eleicao->id],
-            ])->first();
+            if (!empty($chapa['nome'])) {
+                $chapa_entity = Chapa::where([
+                    ['nome', $chapa['nome']],
+                    ['eleicao_id', $eleicao->id],
+                ])->first();
         
-            if ($chapa_entity) {
-                $chapa_entity->nome = $chapa['nome'];
-                $chapa_entity->save();
-            } else {
-                Chapa::create([
-                    'nome' => $chapa['nome'],
-                    'votos' => 0,
-                    'eleicao_id' => $eleicao->id,
-                ]);
+                if ($chapa_entity) {
+                    $chapa_entity->nome = $chapa['nome'];
+                    $chapa_entity->save();
+                } else {
+                    Chapa::create([
+                        'nome' => $chapa['nome'],
+                        'votos' => 0,
+                        'eleicao_id' => $eleicao->id,
+                    ]);
+                }
             }
         }
         

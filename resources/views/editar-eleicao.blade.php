@@ -45,16 +45,16 @@
             <h2>Chapas</h2>
 
             <div id="chapas_container">
-            @foreach ($chapas as $chapa_count => $chapa_nome)
-                <div class="form-group">
-                    <label for="nome_chapa_{{ $chapa_count }}">Nome da Chapa {{ $chapa_count + 1 }}</label>
-                    <input type="text" class="form-control" id="nome_chapa_{{ $chapa_count }}" name="nome_chapa_{{ $chapa_count }}" value="{{ old('nome_chapa_' . $chapa_count, $chapa_nome) }}" data-chapa-count="{{ $chapa_count }}">
-                </div>
-             @endforeach
+                @foreach ($eleicao->chapas as $chapa)
+                    <div class="form-group">
+                        <label for="nome_chapa_{{ $chapa->id }}">Nome da Chapa {{ $chapa->id }}</label>
+                        <input type="text" class="form-control" id="nome_chapa_{{ $chapa->id }}" name="nome_chapa_{{ $chapa->id }}" value="{{ old('nome_chapa_' . $chapa->id, $chapa->nome) }}">
+                    </div>
+                @endforeach
             </div>
 
+            <button type="button" class="btn btn-secondary" id="adicionar_chapa">Adicionar</button>
 
-            <button type="button" class="btn btn-secondary" id="adicionar_chapa">Adicionar
             <hr>
 
         <button type="submit" class="btn btn-primary">Salvar</button>
@@ -64,19 +64,19 @@
 
         
         <script>
-            $(function() {
-                 var chapa_count = $('input[name^="nome_chapa_"]').length;
+            var num_chapas = {{ count($eleicao->chapas) }};
+            var chapas_container = document.getElementById('chapas_container');
 
-                 $('#adicionar_chapa').click(function() {
-                    chapa_count++;
-
-                    var html = '<div class="form-group">';
-                    html += '<label for="nome_chapa_' + chapa_count + '">Nome da Chapa ' + (chapa_count + 1) + '</label>';
-                    html += '<input type="text" class="form-control" id="nome_chapa_' + chapa_count + '" name="nome_chapa_' + chapa_count + '" value="">';
-                    html += '</div>';
-
-                $('#chapas_container').append(html);
-                });
+            document.getElementById('adicionar_chapa').addEventListener('click', function() {
+                var nova_chapa = document.createElement('div');
+                nova_chapa.innerHTML = `
+                    <div class="form-group">
+                        <label for="nome_chapa_${num_chapas + 1}">Nome da Chapa ${num_chapas + 1}</label>
+                        <input type="text" class="form-control" id="nome_chapa_${num_chapas + 1}" name="nome_chapa_${num_chapas + 1}">
+                    </div>
+                `;
+                chapas_container.appendChild(nova_chapa);
+                num_chapas++;
             });
         </script>   
 
