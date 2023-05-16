@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EleicaoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CandidatoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +48,17 @@ Route::post('/eleicao/{id}/candidatos/salvar', 'CandidatoController@salvar')->na
 //Rotas de cadastro de usuario
 Route::get('/create', 'App\Http\Controllers\UserController@create')->name('create');
 Route::post('/store', 'App\Http\Controllers\UserController@store')->name('store');
+
+//Rotas de cadastro de candidatos
+Route::get('/candidatos', [CandidatoController::class, 'index'])->name('listar-candidatos');
+Route::get('/candidatos', [CandidatoController::class, 'index'])->name('candidatos.index');
+Route::get('/candidatos/create', [CandidatoController::class, 'create'])->name('candidatos.create');
+Route::post('/candidatos', [CandidatoController::class, 'store'])->name('candidatos.store');
+Route::get('/candidatos/{candidato}', [CandidatoController::class, 'show'])->name('candidatos.show');
+Route::get('/candidatos/{candidato}/edit', [CandidatoController::class, 'edit'])->name('candidatos.edit');
+Route::put('/candidatos/{candidato}', [CandidatoController::class, 'update'])->name('candidatos.update');
+Route::delete('/candidatos/{candidato}', [CandidatoController::class, 'destroy'])->name('candidatos.destroy');
+
 
 });
 

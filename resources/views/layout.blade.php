@@ -35,6 +35,9 @@
                     <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">Sair</a>
                 </li>
             </ul>
