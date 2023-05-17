@@ -2,19 +2,20 @@
 
 @section('content')
     <div class="container">
-        <h1>Cadastrar Candidato</h1>
+        <h1>Editar Candidato</h1>
 
-        <form action="{{ route('candidatos.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('candidatos.update', $candidato->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <div class="form-group">
                 <label for="nome_completo">Nome Completo</label>
-                <input type="text" name="nome_completo" id="nome_completo" class="form-control" required>
+                <input type="text" name="nome_completo" id="nome_completo" class="form-control" value="{{ $candidato->nome_completo }}" required>
             </div>
 
             <div class="form-group">
                 <label for="biografia">Biografia</label>
-                <textarea name="biografia" id="biografia" class="form-control" rows="5"></textarea>
+                <textarea name="biografia" id="biografia" class="form-control" rows="5">{{ $candidato->biografia }}</textarea>
             </div>
 
             <div class="form-group">
@@ -27,7 +28,9 @@
                 <select name="chapa_id" id="chapa_id" class="form-control" required>
                     @if ($chapas)
                         @foreach ($chapas as $chapa)
-                            <option value="{{ $chapa->id }}">{{ $chapa->nome }}</option>
+                            <option value="{{ $chapa->id }}" {{ $chapa->id == $candidato->chapa_id ? 'selected' : '' }}>
+                                {{ $chapa->nome }}
+                            </option>
                         @endforeach
                     @endif
                 </select>
@@ -38,13 +41,15 @@
                 <select name="eleicao_id" id="eleicao_id" class="form-control" required>
                     @if ($eleicoes)
                         @foreach ($eleicoes as $eleicao)
-                            <option value="{{ $eleicao->id }}">{{ $eleicao->nome }}</option>
+                            <option value="{{ $eleicao->id }}" {{ $eleicao->id == $candidato->eleicao_id ? 'selected' : '' }}>
+                                {{ $eleicao->nome }}
+                            </option>
                         @endforeach
                     @endif    
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
 @endsection

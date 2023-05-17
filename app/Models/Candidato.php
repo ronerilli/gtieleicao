@@ -21,5 +21,13 @@ class Candidato extends Model
         'created_at',
         'updated_at',
     ];
-
+    public function chapa()
+    {
+        return $this->belongsTo(Chapa::class);
+    }
+    
+    public function eleicao()
+    {
+        return $this->belongsTo(Eleicao::class);
+    }    
 }

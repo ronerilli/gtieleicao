@@ -1,17 +1,15 @@
 @extends('layout')
 
 @section('content')
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
     <div class="container">
         <h1>Candidatos</h1>
-
-        <div class="mb-3">
-            <a href="{{ route('candidatos.create') }}" class="btn btn-primary" title="Novo Candidato">
-                Novo Candidato
-            </a>
-            <a href="{{ route('home') }}" class="btn btn-secondary" title="Voltar">
-                Voltar
-            </a>
-        </div>
 
         <table class="table">
             <thead>
@@ -27,12 +25,9 @@
                     <tr>
                         <td>{{ $candidato->nome_completo }}</td>
                         <td>{{ $candidato->chapa->nome }}</td>
-                        <td>{{ $candidato->eleicao->nome }}</td>
+                        <td>{{ $candidato->chapa->eleicao->nome }}</td>
                         <td>
-                            <a href="{{ route('candidatos.show', $candidato->id) }}" class="btn btn-primary" title="Detalhar">
-                                <i class="fas fa-search"></i>
-                            </a>
-                            <a href="{{ route('candidatos.edit', $candidato->id) }}" class="btn btn-success" title="Editar">
+                            <a href="{{ route('editar-candidato', $candidato->id) }}" class="btn btn-success" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <form action="{{ route('candidatos.destroy', $candidato->id) }}" method="POST" style="display: inline-block;">
@@ -47,5 +42,13 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="mb-3">
+            <a href="{{ route('candidatos.create') }}" class="btn btn-primary" title="Novo Candidato">
+                Novo Candidato
+            </a>
+            <a href="{{ route('home') }}" class="btn btn-secondary" title="Voltar">
+                Voltar
+            </a>
+        </div>
     </div>
 @endsection
