@@ -16,10 +16,12 @@
             <div class="card-header">Acesso</div>
             <div class="card-body">
               <div class="form-group">
-                <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Administrador</button>
-              </div>
-              <div class="form-group">
-                <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Eleitor</button>
+                <div class="mb-2"> 
+                  <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Administrador</button>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Eleitor</button>
+                </div>
               </div>
               
             </div>
