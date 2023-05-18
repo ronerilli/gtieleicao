@@ -37,7 +37,7 @@ class EleicaoController extends Controller
         
 
     if($eleicao->save()) {
-            return redirect()->route('home')->with('success', 'Eleição cadastrada com sucesso!');
+        return redirect()->route('listar-eleicoes')->with('success', 'Eleição criada com sucesso.');
         } else {
             return redirect()->route('cadastrar-eleicao')->withErrors(['msg'=>'Erro ao cadastrar eleição']);
         }
@@ -151,9 +151,23 @@ class EleicaoController extends Controller
     public function excluir($id)
     {
         $eleicao = Eleicao::find($id);
+
+        // Excluir todas as chapas relacionadas
+        foreach ($eleicao->chapas as $chapa) {
+            // Excluir todos os candidatos relacionados à chapa
+            foreach ($chapa->candidatos as $candidato) {
+                $candidato->delete();
+            }
+            
+            $chapa->delete();
+        }
+
+        // Excluir a eleição
         $eleicao->delete();
+
         return redirect()->route('listar-eleicoes')->with('success', 'Eleição excluída com sucesso.');
     }
+
 
 
 }
