@@ -168,6 +168,93 @@ class EleicaoController extends Controller
         return redirect()->route('listar-eleicoes')->with('success', 'Eleição excluída com sucesso.');
     }
 
+    public function votar($id)
+    {
+        $eleicao = Eleicao::find($id);
+        
+        // Verifica se o usuário pertence à eleição
+        if ($eleicao->user_id != auth()->id()) {
+            return redirect()->route('listar-eleicoes')->withErrors(['msg' => 'Você não tem permissão para votar nesta eleição.']);
+        }
+        
+        // Verifica se o usuário já votou
+        $eleitor = Eleitor::where('eleicao_id', $id)
+            ->where('matricula', auth()->user()->matricula)
+            ->first();
+        
+        if ($eleitor->votou) {
+            return redirect()->route('listar-eleicoes')->withErrors(['msg' => 'Você já votou nesta eleição.']);
+        }
+        
+        // Obtém as chapas da eleição
+        $chapas = $eleicao->chapas;
+        
+        return view('registrar-voto', compact('chapas'));
+    }
+    
+    public function registrarVoto(Request $request, $id)
+    {
+        $eleicao = Eleicao::find($id);
+        
+        // Verifica se o usuário pertence à eleição
+        if ($eleicao->user_id != auth()->id()) {
+            return redirect()->route('listar-eleicoes')->withErrors(['msg' => 'Você não tem permissão para votar nesta eleição.']);
+        }
+        
+        // Verifica se o usuário já votou
+        $eleitor = Eleitor::where('eleicao_id', $id)
+            ->where('matricula', auth()->user()->matricula)
+            ->first();
+        
+        if ($eleitor->votou) {
+            return redirect()->route('listar-eleicoes')->withErrors(['msg' => 'Você já votou nesta eleição.']);
+        }
+        
+        // Obtém a chapa selecionada
+        $chapaId = $request->input('chapa');
+        $chapa = Chapa::find($chapaId);
+        
+        if (!$chapa) {
+            return redirect()->back()->withErrors(['msg' => 'Chapa inválida.']);
+        }
+        
+        // Atualiza os votos da chapa
+        $chapa->votos += 1;
+        $chapa->save();
+        
+        // Atualiza o registro do eleitor informando que ele votou
+        $eleitor->votou = true;
+        $eleitor->save();
+        
+        return redirect()->route('listar-eleicoes')->with('success', 'Voto registrado com sucesso.');
+    }
+    
+        public function exibirEleicao($id)
+    {
+        $eleicao = Eleicao::findOrFail($id);
+        $chapas = $eleicao->chapas;
 
+        return view('exibir-eleicao', compact('eleicao', 'chapas'));
+    }
+
+    public function votarEleicao(Request $request, $id)
+    {
+        $eleicao = Eleicao::findOrFail($id);
+        $chapaId = $request->input('chapa');
+
+        // Atualize os votos da chapa selecionada
+        $chapa = Chapa::findOrFail($chapaId);
+        $chapa->votos += 1;
+        $chapa->save();
+
+        // Marque o eleitor como tendo votado
+        $eleitor = Eleitor::where('eleicao_id', $id)
+            ->where('matricula', auth()->user()->matricula)
+            ->first();
+        $eleitor->votou = true;
+        $eleitor->save();
+
+        return redirect()->route('listar-eleicoes')->with('success', 'Voto registrado com sucesso.');
+    }
 
 }

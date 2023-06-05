@@ -20,7 +20,7 @@
                   <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Administrador</button>
                 </div>
                 <div>
-                  <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-administrador')}}'">Acesso Eleitor</button>
+                  <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-eleitor')}}'">Acesso Eleitor</button>
                 </div>
               </div>
               
