@@ -35,6 +35,7 @@ class AuthController extends Controller
 
     public function authenticateEleitor(Request $request)
     {
+        dd($request->all());
         // Obtenha o código SMS enviado para o telefone do eleitor
         $codigoSMS = $request->input('codigo_sms');
 
@@ -43,17 +44,17 @@ class AuthController extends Controller
 
         if ($codigoSMSValido) {
             $matricula = $request->input('matricula');
-            dd($matricula);
+            
         
             // Buscar o eleitor com base na matrícula
             $eleitor = Eleitor::where('matricula', $matricula)->first();
-            dd($eleitor);
+            
         
             if ($eleitor) {
                 // Autenticar o eleitor
                 Auth::loginUsingId($eleitor->id);
         
-                return redirect()->route('registrar-voto')->with('success', 'Autenticação realizada com sucesso.');
+                return redirect()->route('exibir-eleicao')->with('success', 'Autenticação realizada com sucesso.');
             } else {
                 return redirect()->back()->with('error', 'Eleitor não encontrado.');
             }
@@ -72,34 +73,37 @@ class AuthController extends Controller
         if ($eleitor) {
             // Obter o telefone do eleitor
             $telefone = $eleitor->telefone;
-            
 
-            // Gere um código SMS aleatório
-        $codigoSMS = mt_rand(1000, 9999);
+            // Gerar um código SMS aleatório
+            $codigoSMS = mt_rand(1000, 9999);
 
-        // Salve o código SMS na sessão para validação posterior
-        $request->session()->put('codigo_sms', $codigoSMS);
+            // Salvar o código SMS na sessão para validação posterior
+            $request->session()->put('codigo_sms', $codigoSMS);
 
-        // Crie uma URL para o endpoint authenticateEleitor com o código SMS
-        $url = URL::signedRoute('authenticate-eleitor', ['codigo_sms' => $codigoSMS]);
+            // Criar uma URL para o endpoint authenticateEleitor com o código SMS e a matrícula
+            $url = URL::signedRoute('authenticate-eleitor', [
+                'codigo_sms' => $codigoSMS,
+                'matricula' => $matricula,
+            ]);
 
-        // Inicialize o cliente Twilio
-        $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
+            // Inicializar o cliente Twilio
+            $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
 
-        // Envie o código SMS para o número de telefone do eleitor
-        $message = $twilio->messages->create(
-        $telefone,
-            [
-                'from' => env('TWILIO_PHONE_NUMBER'),
-                'body' => 'Seu código de autenticação é: ' . $codigoSMS 
-            ]
-        );
+            // Enviar o código SMS para o número de telefone do eleitor
+            $message = $twilio->messages->create(
+                $telefone,
+                [
+                    'from' => env('TWILIO_PHONE_NUMBER'),
+                    'body' => 'Seu código de autenticação é: ' . $codigoSMS,
+                ]
+            );
 
             return redirect()->back()->with('success', 'Código SMS enviado com sucesso.');
         } else {
             return redirect()->back()->with('error', 'Matrícula não encontrada.');
         }
     }
+
 
 
     public function loginEleitor()

@@ -20,7 +20,7 @@ use App\Http\Controllers\CandidatoController;
 Route::get('/', function () {
     return view('index');
 });
-
+ 
 
 
 

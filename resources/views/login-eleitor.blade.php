@@ -57,7 +57,7 @@
     </div>
     <script>
         $(document).ready(function () {
-            $('#successModal').modal('show');
+            $('#successModal').modal('show'); 
         });
     </script>
 @endif

@@ -23,7 +23,7 @@
                   <button type="button" class="btn btn-primary btn-block" onclick="window.location='{{route('login-eleitor')}}'">Acesso Eleitor</button>
                 </div>
               </div>
-              
+               
             </div>
           </div>
         </div>
