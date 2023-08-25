@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> -->
     <!-- Biblioteca de ícones -->
-    <script src="{{ asset('css/fontawesome/js/fontawesome.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/fontawesome/css/fontawesome.css') }}">
+    <script src="{{ asset('js/all.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
