@@ -28,13 +28,15 @@
                         <td>{{ $candidato->chapa->eleicao->nome }}</td>
                         <td>
                             <a href="{{ route('editar-candidato', $candidato->id) }}" class="btn btn-success" title="Editar">
+                                Alterar
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <form action="{{ route('candidatos.destroy', $candidato->id) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" title="Deletar" onclick="return confirm('Tem certeza que deseja deletar este candidato?')">
-                                    <i class="fas fa-trash"></i>
+                                    Apagar
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
                         </td>
