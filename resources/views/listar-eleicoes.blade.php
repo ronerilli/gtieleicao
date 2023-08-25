@@ -33,5 +33,9 @@
         @endforeach
     </tbody>
 </table>
+<div class="mb-3">
+    <a href="{{ route('cadastrar-eleicao') }}" class="btn btn-primary">Criar Nova Eleição</a>
+
 <a href="{{ route('home') }}" class="btn btn-primary">Voltar para Home</a>
+</div>
 @endsection

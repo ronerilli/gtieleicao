@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <h1>Editar Candidato</h1>
 
         <form action="{{ route('candidatos.update', $candidato->id) }}" method="POST" enctype="multipart/form-data">
@@ -18,10 +18,12 @@
                 <textarea name="biografia" id="biografia" class="form-control" rows="5">{{ $candidato->biografia }}</textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group d-flex flex-column">
                 <label for="foto">Foto</label>
+                <small>Selecione uma foto</small>
                 <input type="file" name="foto" id="foto" class="form-control-file">
             </div>
+            
 
             <div class="form-group">
                 <label for="chapa_id">Chapa</label>

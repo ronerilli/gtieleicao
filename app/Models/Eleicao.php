@@ -16,6 +16,11 @@ class Eleicao extends Model
     }
     public function chapas()
     {
-         return $this->hasMany(Chapa::class);
+     return $this->hasMany(Chapa::class);
     }
+
+     public function candidatos()
+     {
+     return $this->hasMany(Candidato::class);
+     }
 }

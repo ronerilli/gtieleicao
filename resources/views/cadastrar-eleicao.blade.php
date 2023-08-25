@@ -30,6 +30,7 @@
               <label for="data_fim">Data de Término:</label>
               <input type="datetime-local" class="form-control" id="data_fim" name="data_fim" value="{{ old('data_fim') }}" required>
             </div>
+            
             <button type="submit" class="btn btn-primary">Cadastrar</button>
           </form>
         </div>

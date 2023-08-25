@@ -20,7 +20,7 @@ use App\Http\Controllers\CandidatoController;
 Route::get('/', function () {
     return view('index');
 });
-
+ 
 
 
 
@@ -28,6 +28,15 @@ Route::get('/', function () {
 Route::get('/login-administrador', 'App\Http\Controllers\AuthController@loginAdmin')->name('login-administrador');
 Route::post('/login-administrador', 'App\Http\Controllers\AuthController@authenticateAdmin')->name('login-administrador-auth');
 Route::get('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+Route::get('/login-eleitor', [AuthController::class, 'loginEleitor'])->name('login-eleitor');
+Route::post('/enviar-codigo-sms', [AuthController::class, 'enviarCodigoSMS'])->name('enviar-codigo-sms');
+Route::post('/authenticate-eleitor', [AuthController::class, 'authenticateEleitor'])->name('authenticate-eleitor');
+Route::get('/registrar-voto', 'App\Http\Controllers\EleicaoController@registrarVoto')->name('registrar-voto');
+Route::get('/eleicao/{id}', 'EleicaoController@exibirEleicao')->name('exibir-eleicao');
+Route::post('/eleicao/{id}/votar', 'EleicaoController@votarEleicao')->name('votar-eleicao');
+
+
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -40,6 +49,8 @@ Route::get('/listar-eleicoes', 'App\Http\Controllers\EleicaoController@listarEle
 Route::get('/editar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@editar')->name('editar-eleicao');
 Route::put('/atualizar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@atualizar')->name('atualizar-eleicao');
 Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('excluir-eleicao');
+
+
 
 
 /* Route::get('/eleicao/{id}/candidatos/novo', 'CandidatoController@novo')->name('novo-candidato');

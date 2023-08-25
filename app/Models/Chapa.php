@@ -19,4 +19,9 @@ class Chapa extends Model
     {
         return $this->belongsTo(Eleicao::class);
     }
+
+    public function candidatos()
+    {
+        return $this->hasMany(Candidato::class);
+    }
 }
