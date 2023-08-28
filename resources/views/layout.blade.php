@@ -69,7 +69,6 @@
     </style>
 </head>
 <body>
-<!-- style="padding: 30px" -->
     <nav class="navbar navbar-expand-lg navbar-light bg-success" style="padding: 30px">
         <div class="container">
             <a class="navbar-brand" href="#">
