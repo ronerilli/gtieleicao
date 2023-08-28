@@ -69,17 +69,17 @@
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+<!-- style="padding: 30px" -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-success" style="padding: 30px">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="/logo.png" alt="Logo da empresa" style="width: 150px; height: auto;">
+                <img src="/logo.png" alt="Logo da empresa" style="width: 150px; height: auto; align: center;">
             </a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" style="text-align: center">
                 @auth
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
