@@ -7,7 +7,7 @@ use App\Models\Vote;
 
 class VotacaoController extends Controller
 {
-    public function store(Request $request)
+    public function votar(Request $request)
     {
         $data = $request->validate([
             'eleicao_id' => 'required|integer',

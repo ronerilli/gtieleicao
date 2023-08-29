@@ -33,7 +33,7 @@ Route::post('/enviar-codigo-sms', [AuthController::class, 'enviarCodigoSMS'])->n
 Route::post('/authenticate-eleitor', [AuthController::class, 'authenticateEleitor'])->name('authenticate-eleitor');
 Route::get('/registrar-voto', 'App\Http\Controllers\EleicaoController@registrarVoto')->name('registrar-voto');
 Route::get('/eleicao/{id}', 'EleicaoController@exibirEleicao')->name('exibir-eleicao');
-Route::post('/eleicao/{id}/votar', 'EleicaoController@votarEleicao')->name('votar-eleicao');
+Route::post('/eleicao/{id}/votar', 'VotacaoController@votar')->name('votar-eleicao');
 
 
 
