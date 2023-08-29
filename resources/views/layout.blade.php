@@ -63,9 +63,66 @@
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
+        
+        .slate-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
+        .slate-card {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            width: 400px;
+        }
 
+        .slate-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
+        .candidate-card {
+            border-top: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .candidate-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .candidate-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .candidate-name {
+            font-weight: bold;
+        }
+
+        .vote-button {
+            background-color: #198754;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .bio {
+            height:100px;
+            display:block;
+            overflow:hidden;
+        }
     </style>
 </head>
 <body>
