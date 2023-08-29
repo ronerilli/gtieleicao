@@ -33,8 +33,6 @@ Route::get('/login-eleitor', [AuthController::class, 'loginEleitor'])->name('log
 Route::post('/enviar-codigo-sms', [AuthController::class, 'enviarCodigoSMS'])->name('enviar-codigo-sms');
 Route::post('/authenticate-eleitor', [AuthController::class, 'authenticateEleitor'])->name('authenticate-eleitor');
 Route::get('/registrar-voto', 'App\Http\Controllers\EleicaoController@registrarVoto')->name('registrar-voto');
-Route::get('/eleicao/{id}', [EleicaoController::class, 'exibirEleicao'])->name('exibir-eleicao');
-Route::post('/eleicao/{id}/votar', 'VotacaoController@votar')->name('votar-eleicao');
 
 
 
@@ -50,7 +48,8 @@ Route::get('/listar-eleicoes', 'App\Http\Controllers\EleicaoController@listarEle
 Route::get('/editar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@editar')->name('editar-eleicao');
 Route::put('/atualizar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@atualizar')->name('atualizar-eleicao');
 Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('excluir-eleicao');
-
+Route::get('/eleicao/{id}', [EleicaoController::class, 'exibirEleicao'])->name('exibir-eleicao');
+Route::post('/eleicao/{id}/votar', 'VotacaoController@votar')->name('votar-eleicao');
 
 
 
