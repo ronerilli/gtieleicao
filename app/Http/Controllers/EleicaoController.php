@@ -229,7 +229,7 @@ class EleicaoController extends Controller
         return redirect()->route('listar-eleicoes')->with('success', 'Voto registrado com sucesso.');
     }
     
-        public function exibirEleicao($id)
+    public function exibirEleicao($id)
     {
         $eleicao = Eleicao::findOrFail($id);
         $chapas = $eleicao->chapas;

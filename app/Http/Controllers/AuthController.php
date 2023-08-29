@@ -86,13 +86,13 @@ class AuthController extends Controller
             $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
 
             // Enviar o código SMS para o número de telefone do eleitor
-            $message = $twilio->messages->create(
-                $telefone,
-                [
-                    'from' => env('TWILIO_PHONE_NUMBER'),
-                    'body' => 'Seu código de autenticação é: ' . $codigoSMS,
-                ]
-            );
+            // $message = $twilio->messages->create(
+            //     $telefone,
+            //     [
+            //         'from' => env('TWILIO_PHONE_NUMBER'),
+            //         'body' => 'Seu código de autenticação é: ' . $codigoSMS,
+            //     ]
+            // );
 
             return redirect()->back()->with('success', 'Código SMS enviado com sucesso.');
         } else {
