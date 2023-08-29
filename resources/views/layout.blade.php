@@ -17,6 +17,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         /* Estilos personalizados */
+        body {
+            background: #F5F5F5
+        }
         .navbar {
             border-radius: 0;
             height: 50px;

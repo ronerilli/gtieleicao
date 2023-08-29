@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vote;
+use App\Models\Votacao;
+use App\Models\Chapa;
+use App\Models\Eleicao;
 
 class VotacaoController extends Controller
 {
@@ -14,12 +16,17 @@ class VotacaoController extends Controller
             'chapa_id' => 'required|integer',
         ]);
 
-        // Add the current timestamp to the data
-        $data['created_at'] = now();
+        $voto = new Votacao();
+        $voto->eleicao_id = $request->eleicao_id;
+        $voto->chapa_id = $request->chapa_id;
+        $voto->created_at =  now();
 
-        // Save the vote to the database
-        Vote::create($data);
+        if($voto->save()) {
+            return response()->json(['message' => 'Voto registrado com sucesso.']);
+            } else {
+                return response()->json(['message' => 'Houve um problema no registro do voto.']);
+            }
+        }
 
-        return response()->json(['message' => 'Voto registrado com sucesso.']);
     }
 }
