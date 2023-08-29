@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EleicaoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CandidatoController;
+use App\Http\Controllers\EleicaoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +33,7 @@ Route::get('/login-eleitor', [AuthController::class, 'loginEleitor'])->name('log
 Route::post('/enviar-codigo-sms', [AuthController::class, 'enviarCodigoSMS'])->name('enviar-codigo-sms');
 Route::post('/authenticate-eleitor', [AuthController::class, 'authenticateEleitor'])->name('authenticate-eleitor');
 Route::get('/registrar-voto', 'App\Http\Controllers\EleicaoController@registrarVoto')->name('registrar-voto');
-Route::get('/eleicao/{id}', 'EleicaoController@exibirEleicao')->name('exibir-eleicao');
+Route::get('/eleicao/{id}', [EleicaoController::class, 'exibirEleicao'])->name('exibir-eleicao');
 Route::post('/eleicao/{id}/votar', 'VotacaoController@votar')->name('votar-eleicao');
 
 
