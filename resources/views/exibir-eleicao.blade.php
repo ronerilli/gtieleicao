@@ -15,7 +15,7 @@
                             <div class="candidate-photo">
                                 <img src="/{{ $candidato->foto }}" alt="Candidate 4">
                             </div>
-                            <div class="candidate-name">{{ $candidato->nome_completo }}</div>
+                            <div class="candidate-name"><h5>{{ $candidato->nome_completo }}<h5></div>
                             <button class="btn btn-warning btn-sm toggle-bio" data-bs-toggle="collapse" href="#candidato-{{ $candidato->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Mostrar Biografia
                             </button>

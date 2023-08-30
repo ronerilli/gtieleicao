@@ -76,10 +76,10 @@
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            margin: 10px;
-            width: 410px;
+            margin: 8px;
+            width: 32%;
         }
 
         .slate-name {
@@ -96,8 +96,8 @@
         }
 
         .candidate-photo {
-            width: 100px;
-            height: 100px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             overflow: hidden;
         }
