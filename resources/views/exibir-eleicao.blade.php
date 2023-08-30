@@ -8,7 +8,7 @@
     <div class="slate-container">
         @foreach ($chapas as $chapa)
             <div class="slate-card card">
-                <div class="slate-name">{{ $chapa->nome }}</div>
+                <div class="slate-name text-body-secondary">{{ $chapa->nome }}</div>
                 @foreach ($candidatos as $candidato)
                     @if ($candidato->chapa_id == $chapa->id)
                         <div class="candidate-card">

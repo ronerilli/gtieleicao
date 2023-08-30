@@ -79,7 +79,7 @@
             padding: 20px;
             text-align: center;
             margin: 10px;
-            width: 400px;
+            width: 410px;
         }
 
         .slate-name {
@@ -88,7 +88,7 @@
         }
 
         .candidate-card {
-            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
             padding: 10px 0;
             display: flex;
             align-items: center;
@@ -96,8 +96,8 @@
         }
 
         .candidate-photo {
-            width: 50px;
-            height: 50px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             overflow: hidden;
         }
@@ -108,8 +108,14 @@
             object-fit: cover;
         }
 
-        .candidate-name {
-            font-weight: bold;
+        .slate-name {
+            text-align: center; /* Center the text */
+            padding: 20px; /* Add padding for spacing */
+            font-size: 36px; /* Font size */
+            font-family: "Arial", sans-serif; /* Font family */
+            letter-spacing: 2px; /* Adjust letter spacing */
+            text-transform: uppercase; /* Convert text to uppercase */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow for depth */
         }
 
         .bio {
