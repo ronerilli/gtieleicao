@@ -5,11 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Votacao;
+use App\Models\Eleitor;
+use App\Models\Eleicao;
+use App\Services\VotouService;
 
 class VotacaoController extends Controller
 {
+    protected $votouService;
+
+    public function __construct(VotouService $votouService){
+        $this->votouService = $votouService;
+    }
+
     public function votar(Request $request)
     {   
+        $eleicao = Eleicao::find($request->input("eleicao_id"));
+
+        if ($eleicao->user_id != auth()->id()) {
+            return response()->json(
+                array(
+                'status' => 502,
+                'message' => "Você não tem permissão para votar nesta eleição.")
+            );
+        }
+        $eleitor = Eleitor::where('eleicao_id', $eleicao->id)
+            ->where('id', auth()->user()->id)
+            ->first();
+
+        $this->votouService->votou(auth()->user()->id);
         $voto = new Votacao();
         $voto->eleicao_id = $request->input("eleicao_id");
         $voto->chapa_id = $request->input("chapa_id");
