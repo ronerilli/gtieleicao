@@ -15,6 +15,4 @@ class Eleitor extends Model
     {
         return $this->belongsTo(Eleicao::class);
     }
-
-    //public function eleicao() { return $this->belongsTo('App\Eleicao'); }
 }
