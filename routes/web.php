@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\EleicaoController;
-use App\Http\Controllers\VotacaocaoController;
+use App\Http\Controllers\VotacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Route::get('/editar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@edita
 Route::put('/atualizar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@atualizar')->name('atualizar-eleicao');
 Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('excluir-eleicao');
 Route::get('/eleicao/{id}', [EleicaoController::class, 'exibirEleicao'])->name('exibir-eleicao');
-Route::post('/eleicao/{id}/votar', [VotacaoController::class, 'votar'])->name('votar-eleicao');
+Route::post('/eleicao/{id}', [VotacaoController::class, 'votar'])->name('votar-eleicao');
 
 
 

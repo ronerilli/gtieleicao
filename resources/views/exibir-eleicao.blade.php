@@ -26,13 +26,18 @@
                 </div>
                 <form style="border: none;" method="POST" id="form-{{ $chapa->id }}" action="{{ route('votar-eleicao', ['id' => $eleicao->id]) }}">
                     @csrf
-                    <input type="hidden" name="chapa" value="{{ $chapa->id }}">
+                    <input type="hidden" name="chapa_id" value="{{ $chapa->id }}">
+                    <input type="hidden" name="eleicao_id" value="{{ $eleicao->id }}">
                 </form>
                 <button class="vote-button" id="{{ $chapa->id }}">Votar nesta chapa</button>
             </div>
         @endforeach
     </div> 
-    
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-bio');
@@ -62,8 +67,22 @@
             });
             voteBtn.forEach(button => {
                 button.addEventListener('click', () => {
-                    let form = document.getElementById(`form-${button.id}`)
-                    form.submit()
+                    let campos = document.getElementById(`form-${button.id}`).elements
+                    let postdata = {}
+                    for (let i = 0; i < campos.length; i++){
+                        postdata[campos[i].name] = campos[i].value
+                    }
+                    fetch("", {
+                        method: "POST",
+                        body: JSON.stringify(postdata),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                        }
+                    }).then((response) => {
+                        if (response.status == 200){
+                            console.log("sucesso")
+                        }
+                    })
                 });
             });
         })
