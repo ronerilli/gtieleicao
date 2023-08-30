@@ -32,23 +32,32 @@ class VotacaoController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
-        $this->votouService->votou(auth()->user()->id);
-        $voto = new Votacao();
-        $voto->eleicao_id = $request->input("eleicao_id");
-        $voto->chapa_id = $request->input("chapa_id");
-        $voto->created_at =  now();
-        if($voto->save()) {
-            return response()->json(
-                array(
-                'status' => 201,
-                'message' => "Voto Computado com Sucesso")
-            );
-        } else {
+        if ($eleitor->votou == 1){
             return response()->json(
                 array(
                 'status' => 502,
-                'message' => "Houve um problema com o processamento do seu voto. Por favor, tente novamente")
+                'message' => "Você já participou desta eleição.")
             );
+        }
+        else{
+            $this->votouService->votou(auth()->user()->id);
+            $voto = new Votacao();
+            $voto->eleicao_id = $request->input("eleicao_id");
+            $voto->chapa_id = $request->input("chapa_id");
+            $voto->created_at =  now();
+            if($voto->save()) {
+                return response()->json(
+                    array(
+                    'status' => 201,
+                    'message' => "Voto Computado com Sucesso")
+                );
+            } else {
+                return response()->json(
+                    array(
+                    'status' => 502,
+                    'message' => "Houve um problema com o processamento do seu voto. Por favor, tente novamente")
+                );
+            }
         }
             
     }
