@@ -160,7 +160,24 @@
             </div>
         </div>
     </nav>
-    
+    <button type="button" id="modalButton" style="display: none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="modalOk" class="btn" data-bs-dismiss="modal">Entendi</button>
+            </div>
+            </div>
+        </div>
+    </div>
 
 <div class="container my-5">
     <div class="row">
@@ -169,7 +186,34 @@
         </div>
         </div>
         </div>
-        
+        <script>
+            function openErrorModal(message){
+                classes = $("#modalOk").attr("class")
+                if (classes.includes("primary")){
+                    $("#modalOk").removeClass("btn-primary")
+                    $("#modalOk").addClass("btn-danger")
+                }
+                else {
+                    $("#modalOk").addClass("btn-danger")
+                }
+                $(".modal-title").text("Erro")
+                $(".modal-body").text(message)
+                $("#modalButton").trigger( "click" )
+            }
+            function openSuccessModal(message){
+                classes = $("#modalOk").attr("class")
+                if (classes.includes("danger")){
+                    $("#modalOk").removeClass("btn-danger")
+                    $("#modalOk").addClass("btn-primary")
+                }
+                else {
+                    $("#modalOk").addClass("btn-primary")
+                }
+                $(".modal-title").text("Sucesso")
+                $(".modal-body").text(message)
+                $("#modalButton").trigger( "click" )
+            }
+        </script>
         <!-- <footer class="bg-success text-white py-3 fixed-bottom">
         <div class="container">
             <div class="row">

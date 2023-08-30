@@ -4,6 +4,7 @@
     <h1 class="text-center text-body-secondary">Eleição {{ $eleicao->nome }}</h1>
     <br>
     <br>
+    {{ Session::get('message') }}
     <h3 class="text-center text-body-secondary">Escolha sua chapa</h3>
     <div class="slate-container">
         @foreach ($chapas as $chapa)
@@ -33,11 +34,6 @@
             </div>
         @endforeach
     </div> 
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggleButtons = document.querySelectorAll('.toggle-bio');
@@ -72,17 +68,17 @@
                     for (let i = 0; i < campos.length; i++){
                         postdata[campos[i].name] = campos[i].value
                     }
-                    fetch("", {
-                        method: "POST",
-                        body: JSON.stringify(postdata),
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                        }
-                    }).then((response) => {
-                        if (response.status == 200){
-                            console.log("sucesso")
-                        }
-                    })
+
+                    $.post("", postdata)
+                        .done(function(data){
+                            if (data.status == 201){
+                                openSuccessModal(data.message)
+                            }
+                            else {
+                                openErrorModal(data.message)
+                            }
+                        })
+                        
                 });
             });
         })

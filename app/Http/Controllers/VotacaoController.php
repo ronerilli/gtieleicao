@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Votacao;
 
 class VotacaoController extends Controller
@@ -14,9 +15,17 @@ class VotacaoController extends Controller
         $voto->chapa_id = $request->input("chapa_id");
         $voto->created_at =  now();
         if($voto->save()) {
-            return redirect()->back()->with(['message', 'Voto registrado com sucesso.']);
+            return response()->json(
+                array(
+                'status' => 201,
+                'message' => "Voto Computado com Sucesso")
+            );
         } else {
-            return redirect()->back()->with(['erro', 'Problema com Voto.']);
+            return response()->json(
+                array(
+                'status' => 502,
+                'message' => "Houve um problema com o processamento do seu voto. Por favor, tente novamente")
+            );
         }
             
     }
