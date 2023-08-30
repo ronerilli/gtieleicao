@@ -33,7 +33,7 @@
                     <input type="hidden" name="chapa_id" value="{{ $chapa->id }}">
                     <input type="hidden" name="eleicao_id" value="{{ $eleicao->id }}">
                 </form>
-                <button class="vote-button" id="{{ $chapa->id }}">Votar nesta chapa</button>
+                <button class="vote-button btn btn-success" id="{{ $chapa->id }}">Votar nesta chapa</button>
             </div>
         @endforeach
     </div> 
@@ -76,6 +76,7 @@
                         .done(function(data){
                             if (data.status == 201){
                                 openSuccessModal(data.message)
+                                $(".vote-button").prop('disabled', true)
                             }
                             else {
                                 openErrorModal(data.message)

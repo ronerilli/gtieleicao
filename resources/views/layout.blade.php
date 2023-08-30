@@ -112,15 +112,6 @@
             font-weight: bold;
         }
 
-        .vote-button {
-            background-color: #198754;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 8px 12px;
-            cursor: pointer;
-        }
-
         .bio {
             height:100px;
             display:block;
