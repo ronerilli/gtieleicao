@@ -232,9 +232,10 @@ class EleicaoController extends Controller
     public function exibirEleicao($id)
     {
         $eleicao = Eleicao::findOrFail($id);
-        $chapas = $eleicao->chapas;
+        $chapas = $eleicao->chapas()->get();
+        $candidatos = $eleicao->candidatos;
 
-        return view('exibir-eleicao', compact('eleicao', 'chapas'));
+        return view('exibir-eleicao', compact('eleicao', 'chapas', 'candidatos'));
     }
 
     public function votarEleicao(Request $request, $id)

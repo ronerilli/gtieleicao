@@ -4,27 +4,30 @@
     <h1 class="text-center text-body-secondary">Eleição {{ $eleicao->nome }}</h1>
     <br>
     <br>
-    {{ Session::get('message') }}
     <h3 class="text-center text-body-secondary">Escolha sua chapa</h3>
     <div class="slate-container">
         @foreach ($chapas as $chapa)
             <div class="slate-card card">
                 <div class="slate-name">{{ $chapa->nome }}</div>
-                <div class="candidate-card">
-                    <div class="candidate-photo">
-                        <img src="candidate4.jpg" alt="Candidate 4">
-                    </div>
-                    <div class="candidate-name">Beltrano de Out</div>
-                    <button class="btn btn-warning btn-sm toggle-bio" data-bs-toggle="collapse" href="#candidato-{{ $chapa->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Mostrar Biografia
-                    </button>
-                </div>
-                <div class="collapse overflow-y-auto" id="candidato-{{ $chapa->id }}">
-                        <div class="card card-body bio">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vehicula euismod purus, id efficitur risus imperdiet a. Maecenas mollis tempor erat, consequat efficitur felis fringilla at. Morbi placerat finibus lectus, faucibus maximus quam aliquet sit amet. Duis pellentesque massa metus, a sodales justo gravida eu. Nulla vel placerat nisi. Sed porttitor maximus tellus, sit amet porta diam iaculis sit amet. Sed porttitor est non ex vestibulum semper. Maecenas convallis vitae nunc non vulputate. Morbi at rutrum risus, eu varius sem. Donec et neque ultricies ipsum fringilla fermentum. Ut vel sollicitudin sem. Morbi et quam auctor, efficitur justo in, suscipit urna. Duis et ligula vitae odio auctor faucibus. Mauris fermentum facilisis lectus et volutpat. Donec suscipit rutrum mi. Nunc semper mattis orci, viverra mattis ipsum mollis scelerisque.
+                @foreach ($candidatos as $candidato)
+                    @if ($candidato->chapa_id == $chapa->id)
+                        <div class="candidate-card">
+                            <div class="candidate-photo">
+                                <img src="/{{ $candidato->foto }}" alt="Candidate 4">
+                            </div>
+                            <div class="candidate-name">{{ $candidato->nome_completo }}</div>
+                            <button class="btn btn-warning btn-sm toggle-bio" data-bs-toggle="collapse" href="#candidato-{{ $candidato->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Mostrar Biografia
+                            </button>
                         </div>
-                        <a class="btn btn-light btn-sm more" href="#">Mostrar tudo</a>
-                </div>
+                        <div class="collapse overflow-y-auto" id="candidato-{{ $candidato->id }}">
+                                <div class="card card-body bio">
+                                    {{ $candidato->biografia }}
+                                </div>
+                                <a class="btn btn-light btn-sm more" href="#">Mostrar tudo</a>
+                        </div>
+                    @endif
+                @endforeach
                 <form style="border: none;" method="POST" id="form-{{ $chapa->id }}" action="{{ route('votar-eleicao', ['id' => $eleicao->id]) }}">
                     @csrf
                     <input type="hidden" name="chapa_id" value="{{ $chapa->id }}">
