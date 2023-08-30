@@ -33,7 +33,8 @@
                     <input type="hidden" name="chapa_id" value="{{ $chapa->id }}">
                     <input type="hidden" name="eleicao_id" value="{{ $eleicao->id }}">
                 </form>
-                <button class="vote-button btn btn-success" id="{{ $chapa->id }}">Votar nesta chapa</button>
+                <br>
+                <button class="vote-button btn btn-success btn-lg" id="{{ $chapa->id }}">Votar nesta chapa</button>
             </div>
         @endforeach
     </div> 
