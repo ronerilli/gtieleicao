@@ -31,7 +31,9 @@ class UserController extends Controller
         'email.unique' => 'E-mail já existe',
         'profile.required' => 'Perfil é obrigatório',
     ]);
-
+        if ($validatedData['password'] = ''){
+            $validatedData['password'] = password();
+        }
         // Encrypt the password
         $validatedData['password'] = Hash::make($validatedData['password']);
 

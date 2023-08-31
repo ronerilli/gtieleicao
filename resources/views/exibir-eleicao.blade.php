@@ -34,7 +34,7 @@
                     <input type="hidden" name="eleicao_id" value="{{ $eleicao->id }}">
                 </form>
                 <br>
-                <button class="vote-button btn btn-success btn-lg" @if (auth()->user()->votou == 1) disabled @endif id="{{ $chapa->id }}">Votar nesta chapa</button>
+                <button class="vote-button btn btn-success btn-lg" @if (auth()->user()->votou == 1) disabled @endif id="{{ $chapa->id }}">@if (auth()->user()->votou == 1) Você já votou @else Votar nesta chapa @endif</button>
             </div>
         @endforeach
     </div> 
@@ -78,6 +78,7 @@
                             if (data.status == 201){
                                 openSuccessModal(data.message)
                                 $(".vote-button").prop('disabled', true)
+                                $(".vote-button").text('Você já votou')
                             }
                             else {
                                 openErrorModal(data.message)

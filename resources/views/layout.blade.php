@@ -30,9 +30,14 @@
             height: auto;
         }
 
-        .nav-link {
+        .nav-link,.saudacao{
             color: #fff;
             font-weight: 700;
+        }
+
+        .saudacao{
+            color: #fff;
+            font-weight: 500;
         }
 
         .nav-link:hover {
@@ -135,26 +140,29 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav" style="text-align: center">
-                @auth
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home Page</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Sair</a>
-                    </li>
-                </ul>
-                @endauth
-            </div>
+            @auth
+                @if (auth()->user()->profile == 'admin')
+                    <div class="collapse navbar-collapse" id="navbarNav" style="text-align: center">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home') }}">Home Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
+                            </li>
+                        </ul>
+                @endif
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="saudacao">{{ auth()->user()->name }}</div>
+            @endauth
         </div>
     </nav>
     <button type="button" id="modalButton" style="display: none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
