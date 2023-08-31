@@ -35,12 +35,12 @@ class VotacaoController extends Controller
             );
         }
         else{
-            $this->votouService->votou(auth()->user()->id);
             $voto = new Votacao();
             $voto->eleicao_id = $request->input("eleicao_id");
             $voto->chapa_id = $request->input("chapa_id");
             $voto->created_at =  now();
             if($voto->save()) {
+                $this->votouService->votou(auth()->user()->id);
                 return response()->json(
                     array(
                     'status' => 201,

@@ -34,7 +34,7 @@
                     <input type="hidden" name="eleicao_id" value="{{ $eleicao->id }}">
                 </form>
                 <br>
-                <button class="vote-button btn btn-success btn-lg" id="{{ $chapa->id }}">Votar nesta chapa</button>
+                <button class="vote-button btn btn-success btn-lg" @if (auth()->user()->votou == 1) disabled @endif id="{{ $chapa->id }}">Votar nesta chapa</button>
             </div>
         @endforeach
     </div> 
