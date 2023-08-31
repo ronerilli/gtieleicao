@@ -13,10 +13,22 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'profile'
+        'name', 
+        'email', 
+        'matricula', 
+        'telefone', 
+        'password', 
+        'profile', 
+        'eleicao_id',
+        'votou'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function eleicao()
+    {
+        return $this->belongsTo(Eleicao::class);
+    }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\URL;
-use App\Models\Eleitor;
+use App\Models\User;
 use App\Http\Controllers\EleicaoController;
 
 class AuthController extends Controller
@@ -43,7 +43,7 @@ class AuthController extends Controller
             $matricula = $request->session()->get('matricula');
         
             // Buscar o eleitor com base na matrícula
-            $eleitor = Eleitor::where('matricula', $matricula)->first();
+            $eleitor = User::where('matricula', $matricula)->first();
         
             if ($eleitor) {
                 // Autenticar o eleitor
@@ -63,7 +63,7 @@ class AuthController extends Controller
         $matricula = $request->input('matricula');
 
         // Buscar o eleitor com base na matrícula
-        $eleitor = Eleitor::where('matricula', $matricula)->first();
+        $eleitor = User::where('matricula', $matricula)->first();
 
         if ($eleitor) {
             // Obter o telefone do eleitor

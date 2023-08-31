@@ -18,17 +18,17 @@ class UserController extends Controller
     // Validate the form data
     $validatedData = $request->validate([
         'name' => 'required|max:255',
-        'email' => 'required|max:255|email|unique:users',
-        'password' => 'required|confirmed|min:6',
-        'profile' => 'required'
+        'telefone' => 'max:255|email|unique:users',
+        'email' => 'max:255|email|unique:users',
+        'matricula' => 'max:100',
+        'password' => 'max:255',
+        'profile' => 'required',
+        'eleicao_id' => 'int',
+        'votou'=> 'int'
     ],[
         'name.required' => 'Nome é obrigatório',
-        'email.required' => 'E-mail é obrigatório',
         'email.email' => 'E-mail inválido',
         'email.unique' => 'E-mail já existe',
-        'password.required' => 'Senha é obrigatória',
-        'password.confirmed' => 'Senhas não conferem',
-        'password.min' => 'Senha deve ter no mínimo 6 caracteres',
         'profile.required' => 'Perfil é obrigatório',
     ]);
 
