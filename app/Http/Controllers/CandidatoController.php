@@ -16,9 +16,14 @@ class CandidatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $candidatos = Candidato::with('chapa', 'eleicao')->get();
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
+        $candidatos = Candidato::with('chapa', 'eleicao')
+            ->where('eleicao_id', auth()->user()->eleicao_id)
+            ->get();
         return view('listar-candidatos', compact('candidatos'));
     }
 

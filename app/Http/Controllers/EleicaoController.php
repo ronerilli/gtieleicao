@@ -15,11 +15,17 @@ class EleicaoController extends Controller
 {
     public function cadastrar()
     {
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
         return view('cadastrar-eleicao');
     }
 
     public function salvar(Request $request)
     {
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
         $validatedData = $request->validate([
             'nome' => 'required',
             'orgao' => 'required',
@@ -45,6 +51,9 @@ class EleicaoController extends Controller
 
     public function listarEleicoes()
     {
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
         $userId = auth()->id();
         $eleicoes = Eleicao::where('user_id', $userId)->get();
         if ($eleicoes->count() == 0) {
@@ -57,6 +66,9 @@ class EleicaoController extends Controller
 
     public function editar($id)
     {
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
         $eleicao = Eleicao::where([
             ['id', $id],
             ['user_id', auth()->id()]
@@ -71,6 +83,10 @@ class EleicaoController extends Controller
 
     public function atualizar(Request $request, $id)
     {
+        if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){
+            return redirect()->intended('/home');
+        }
+        
         $eleicao = Eleicao::where([
             ['id', $id],
             ['user_id', auth()->id()]

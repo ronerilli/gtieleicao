@@ -141,7 +141,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             @auth
-                @if (auth()->user()->profile == 'admin')
+                @if (auth()->user()->profile == 'admin' || auth()->user()->profile == 'power')
                     <div class="collapse navbar-collapse" id="navbarNav" style="text-align: center">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
