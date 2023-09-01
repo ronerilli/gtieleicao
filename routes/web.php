@@ -20,20 +20,19 @@ use App\Http\Controllers\VotacaoController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('login-eleitor');
 });
  
 
 
 
 //Rotas para autenticação do usuario
-Route::get('/login-administrador', 'App\Http\Controllers\AuthController@loginAdmin')->name('login-administrador');
-Route::post('/login-administrador', 'App\Http\Controllers\AuthController@authenticateAdmin')->name('login-administrador-auth');
+Route::get('/admin', 'App\Http\Controllers\AuthController@loginAdmin')->name('login-administrador');
+Route::post('/admin', 'App\Http\Controllers\AuthController@authenticateAdmin')->name('login-administrador-auth');
 Route::get('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
 Route::get('/login-eleitor', [AuthController::class, 'loginEleitor'])->name('login-eleitor');
 Route::post('/enviar-codigo-sms', [AuthController::class, 'enviarCodigoSMS'])->name('enviar-codigo-sms');
 Route::post('/authenticate-eleitor', [AuthController::class, 'authenticateEleitor'])->name('authenticate-eleitor');
-Route::get('/registrar-voto', 'App\Http\Controllers\EleicaoController@registrarVoto')->name('registrar-voto');
 
 
 

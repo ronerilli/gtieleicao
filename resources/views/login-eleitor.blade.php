@@ -1,14 +1,27 @@
 @extends('layout')
 
 @section('content')
-    <form action="{{ route('enviar-codigo-sms') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="matricula">Favor informe a sua Matrícula</label>
-            <input type="text" class="form-control" name="matricula" id="matricula" required>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Autenticação Necessária</div>
+                        <div class="card-body">
+                            <form action="{{ route('enviar-codigo-sms') }}" class="row g-5" method="POST">
+                                @csrf
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Por favor, informe a sua Matrícula">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-success mb-3">Enviar Código SMS</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Enviar Código SMS</button>
-    </form>
+    </div>
     @if (session('error'))
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -47,7 +60,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="codigo_sms">Código SMS</label>
-                            <input type="text" class="form-control" name="codigo_sms" id="codigo_sms" required>
+                            <input type="text" class="form-control row" name="codigo_sms" id="codigo_sms" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Entrar</button>
                     </form>

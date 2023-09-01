@@ -41,19 +41,21 @@ class AuthController extends Controller
 
         if ($codigoSMSValido) {
             $matricula = $request->session()->get('matricula');
-        
+            error_log($matricula);
             // Buscar o eleitor com base na matrícula
             $eleitor = User::where('matricula', $matricula)->first();
-        
+
             if ($eleitor) {
                 // Autenticar o eleitor
                 Auth::loginUsingId($eleitor->id);
         
                 return redirect()->route('exibir-eleicao', $eleitor->eleicao_id)->with('success', 'Autenticação realizada com sucesso.');
-            } else {
+            } 
+            else {
                 return redirect()->back()->with('error', 'Eleitor não encontrado.');
             }
-            } else {
+        } 
+        else {
             return redirect()->back()->with('error', 'Código SMS inválido');
         }
     }
