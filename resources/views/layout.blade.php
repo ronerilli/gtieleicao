@@ -84,7 +84,6 @@
             padding: 15px;
             text-align: center;
             margin: 8px;
-            width: 32%;
         }
 
         .slate-name {

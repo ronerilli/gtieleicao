@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         if ($codigoSMSValido) {
             $matricula = $request->session()->get('matricula');
-            error_log($matricula);
+
             // Buscar o eleitor com base na matrícula
             $eleitor = User::where('matricula', $matricula)->first();
 
