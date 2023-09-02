@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Eleicao;
+use App\Models\Votacao;
 use App\Models\Eleitor;
 use App\Models\Chapa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -187,10 +189,31 @@ class EleicaoController extends Controller
     public function exibirEleicao($id)
     {
         $eleicao = Eleicao::findOrFail($id);
+        $currentDateTime = Carbon::now();
+        $specificTime = Carbon::parse($eleicao->data_fim);
+
+        if ($currentDateTime->greaterThan($specificTime)) {
+            return redirect()->route('resultados-eleicao', $eleicao->id);
+        } else {
+            echo "Current time is not greater than the specific time.";
+        }
         $chapas = $eleicao->chapas()->get();
         $candidatos = $eleicao->candidatos;
 
         return view('exibir-eleicao', compact('eleicao', 'chapas', 'candidatos'));
+    }
+
+    public function resultadosEleicao($id){
+        $votos = DB::table('votacaos')
+            ->select('chapa_id', DB::raw('COUNT(*) as Votos'))
+            ->groupBy('chapa_id')
+            ->get();
+        
+        $eleicao = Eleicao::find($id);
+        $chapas = $eleicao->chapas;
+        error_log($votos);
+
+        return view('resultados-eleicao', compact('eleicao', 'chapas', 'votos'));
     }
 
 }

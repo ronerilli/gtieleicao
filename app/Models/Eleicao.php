@@ -14,6 +14,12 @@ class Eleicao extends Model
     {
          return $this->hasMany(Eleitor::class);
     }
+    
+    public function votacao()
+    {
+         return $this->hasMany(Votacao::class);
+    }
+
     public function chapas()
     {
      return $this->hasMany(Chapa::class);

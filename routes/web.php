@@ -50,6 +50,7 @@ Route::put('/atualizar-eleicao/{id}', 'App\Http\Controllers\EleicaoController@at
 Route::delete('/excluir-eleicao/{id}', 'App\Http\Controllers\EleicaoController@excluir')->name('excluir-eleicao');
 Route::get('/eleicao/{id}', [EleicaoController::class, 'exibirEleicao'])->name('exibir-eleicao');
 Route::post('/eleicao/{id}', [VotacaoController::class, 'votar'])->name('votar-eleicao');
+Route::get('/resultados/{id}', [EleicaoController::class, 'resultadosEleicao'])->name('resultados-eleicao');
 
 
 
