@@ -13,6 +13,7 @@
     <!-- Biblioteca de ícones -->
     <script src="{{ asset('js/all.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
+    <script src="{{ asset('js/chart.js') }}"></script>
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
