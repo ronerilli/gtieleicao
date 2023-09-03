@@ -4,7 +4,7 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-8">
-          <div class="chart-container">
+          <div class="embed-responsive embed-responsive-1by1">
             <canvas id="electionChart" width="400" height="400"></canvas>
           </div>
   </div>
@@ -37,19 +37,7 @@
       }],
     },
     options: {
-      indexAxis: 'y',
-      scales: {
-        x: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Votos',
-          },
-        },
-        y: {
-          beginAtZero: true,
-        },
-      },
+      indexAxis: 'y'
     },
   });
 </script>

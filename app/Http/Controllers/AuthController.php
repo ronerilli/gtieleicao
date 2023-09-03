@@ -72,8 +72,8 @@ class AuthController extends Controller
             $telefone = $eleitor->telefone;
 
             // Gerar um código SMS aleatório
-            $codigoSMS = mt_rand(1000, 9999);
-            error_log($codigoSMS);
+            $codigoSMS = mt_rand(100000, 999999);
+            // error_log($codigoSMS);
             // Salvar o código SMS na sessão para validação posterior
             $request->session()->put('codigo_sms', $codigoSMS);
             $request->session()->put('matricula', $matricula);
@@ -88,13 +88,13 @@ class AuthController extends Controller
             $twilio = new Client(env('TWILIO_SID'), env('TWILIO_AUTH_TOKEN'));
 
             // Enviar o código SMS para o número de telefone do eleitor
-            // $message = $twilio->messages->create(
-            //     $telefone,
-            //     [
-            //         'from' => env('TWILIO_PHONE_NUMBER'),
-            //         'body' => 'Seu código de autenticação é: ' . $codigoSMS,
-            //     ]
-            // );
+            $message = $twilio->messages->create(
+                $telefone,
+                [
+                    'from' => env('TWILIO_PHONE_NUMBER'),
+                    'body' => 'Seu código de autenticação é: ' . $codigoSMS,
+                ]
+            );
 
             return redirect()->back()->with('success', 'Código SMS enviado com sucesso.');
         } else {

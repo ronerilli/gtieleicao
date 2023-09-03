@@ -204,15 +204,6 @@ class EleicaoController extends Controller
     }
 
     public function resultadosEleicao($id){
-        // $votos = DB::table('votacaos')
-        //     ->select('chapa_id', DB::raw('COUNT(*) as Votos'))
-        //     ->groupBy('chapa_id')
-        //     ->get();
-        
-        // $eleicao = Eleicao::find($id);
-        // $chapas = $eleicao->chapas;
-        // $candidatos = $eleicao->candidatos;
-        // error_log($votos);
 
         $results = DB::table('votacaos')
             ->select('chapas.nome', DB::raw('COUNT(*) as count'))
@@ -221,7 +212,6 @@ class EleicaoController extends Controller
             ->groupBy('votacaos.chapa_id')
             ->get();
         
-        error_log($results);
         return view('resultados-eleicao', compact('results'));
     }
 
