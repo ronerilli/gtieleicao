@@ -11,7 +11,9 @@
             <p>Clique no link Eleições para ver as eleições disponíveis.</p>
             <a class="btn btn-primary btn-lg shadow-lg" href="{{ route('cadastrar-eleicao') }}" role="button">Criar nova eleição</a>
         @endif
+        @if (auth()->user()->eleicao_id != null )
         <a class="btn btn-primary btn-lg shadow-lg" href="{{ route('exibir-eleicao', auth()->user()->eleicao_id) }}" role="button">Minha eleição</a>
+        @endif
     </div>
 </div>
 @endsection
