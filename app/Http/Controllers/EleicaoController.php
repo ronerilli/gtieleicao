@@ -194,9 +194,8 @@ class EleicaoController extends Controller
 
         if ($currentDateTime->greaterThan($specificTime)) {
             return redirect()->route('resultados-eleicao', $eleicao->id);
-        } else {
-            echo "Current time is not greater than the specific time.";
         }
+        
         $chapas = $eleicao->chapas()->get();
         $candidatos = $eleicao->candidatos;
 
@@ -205,14 +204,19 @@ class EleicaoController extends Controller
 
     public function resultadosEleicao($id){
 
+        $eleicao = Eleicao::findOrFail($id);
+        $chapas = $eleicao->chapas()->get();
+        $candidatos = $eleicao->candidatos;
         $results = DB::table('votacaos')
-            ->select('chapas.nome', DB::raw('COUNT(*) as count'))
+            ->select('chapas.nome', 'chapas.id',DB::raw('COUNT(*) as count'))
             ->join('chapas', 'votacaos.chapa_id', '=', 'chapas.id')
             ->join('eleicoes', 'eleicoes.id', '=', DB::raw($id))
+            ->where('votacaos.eleicao_id', $id)
             ->groupBy('votacaos.chapa_id')
             ->get();
         
-        return view('resultados-eleicao', compact('results'));
+        
+        return view('resultados-eleicao', compact('results', 'eleicao', 'chapas', 'candidatos'));
     }
 
 }
