@@ -7,8 +7,11 @@
         <h1 class="display-4">Bem-vindo ao sistema Grunti Eleição!</h1>
         <p class="lead">Aqui você pode acompanhar e participar das nossas eleições.</p>
         <hr class="my-4">
-        <p>Clique no link Eleições para ver as eleições disponíveis.</p>
-        <a class="btn btn-primary btn-lg shadow-lg" href="{{ route('cadastrar-eleicao') }}" role="button">Criar nova eleição</a>
+        @if (auth()->user()->profile == 'admin' || auth()->user()->profile == 'power')
+            <p>Clique no link Eleições para ver as eleições disponíveis.</p>
+            <a class="btn btn-primary btn-lg shadow-lg" href="{{ route('cadastrar-eleicao') }}" role="button">Criar nova eleição</a>
+        @endif
+        <a class="btn btn-primary btn-lg shadow-lg" href="{{ route('exibir-eleicao', auth()->user()->eleicao_id) }}" role="button">Minha eleição</a>
     </div>
 </div>
 @endsection
