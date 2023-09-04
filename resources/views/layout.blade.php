@@ -146,28 +146,30 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">Home Page</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
-                </li>
-            </ul>
-            @auth
-                <ul class="navbar-nav ml-auto ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{{ auth()->user()->name }}</a> 
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Sair</a>
-                    </li>
-                </ul>
-            @endauth
+        @auth
+            @if (auth()->user()->profile == 'admin' || auth()->user()->profile == 'power')
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">Home Page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
+                        </li>
+                    </ul>
+            @endif
+                    <ul class="navbar-nav ml-auto ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ auth()->user()->name }}</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}">Sair</a>
+                        </li>
+                    </ul>
+        @endauth
         </div>
     </div>
 </nav>
