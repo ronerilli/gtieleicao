@@ -21,6 +21,7 @@
                             @if ($candidato->chapa_id == $chapa->id)
                                   <div class="col-3">
                                     <div class="candidate-card card">
+                                        <br>
                                         <div class="candidate-photo">
                                             <img src="/{{ $candidato->foto }}" alt="Candidate 4" class="card-img-top">
                                         </div>
