@@ -203,10 +203,6 @@ class EleicaoController extends Controller
     }
 
     public function resultadosEleicao($id){
-
-        $eleicao = Eleicao::findOrFail($id);
-        $chapas = $eleicao->chapas()->get();
-        $candidatos = $eleicao->candidatos;
         $results = DB::table('votacaos')
             ->select('chapas.nome', 'chapas.id',DB::raw('COUNT(*) as count'))
             ->join('chapas', 'votacaos.chapa_id', '=', 'chapas.id')
@@ -215,6 +211,12 @@ class EleicaoController extends Controller
             ->groupBy('votacaos.chapa_id')
             ->get();
         
+        $chapaIdWithMaxCount = $results->where('count', $results->max('count'))->pluck('id')->first();
+        $eleicao = Eleicao::findOrFail($id);
+        $chapas = $eleicao->chapas()->get()->where('id', $chapaIdWithMaxCount);
+        $candidatos = $eleicao->candidatos->where('chapa_id', $chapaIdWithMaxCount);
+        error_log($chapas);
+        error_log($candidatos);
         
         return view('resultados-eleicao', compact('results', 'eleicao', 'chapas', 'candidatos'));
     }

@@ -87,9 +87,19 @@
             margin: 8px;
         }
 
-        .slate-name {
+        #electionChart {
+            /* margin: 20px; */
+            padding: 20px;
+            /* padding-top: 30px; */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        
+        .slate-name.text-body-secondary {
             font-weight: bold;
             margin-bottom: 10px;
+            font-size: 30px;
         }
 
         .candidate-card {
@@ -123,11 +133,11 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Text shadow for depth */
         }
 
-        .bio {
+        /* .bio {
             height:100px;
             display:block;
             overflow:hidden;
-        }
+        } */
     </style>
 </head>
 <body>
