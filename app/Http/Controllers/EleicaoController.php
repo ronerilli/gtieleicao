@@ -215,8 +215,6 @@ class EleicaoController extends Controller
         $eleicao = Eleicao::findOrFail($id);
         $chapas = $eleicao->chapas()->get()->where('id', $chapaIdWithMaxCount);
         $candidatos = $eleicao->candidatos->where('chapa_id', $chapaIdWithMaxCount);
-        error_log($chapas);
-        error_log($candidatos);
         
         return view('resultados-eleicao', compact('results', 'eleicao', 'chapas', 'candidatos'));
     }
