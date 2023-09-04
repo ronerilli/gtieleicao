@@ -87,9 +87,7 @@
         }
 
         #electionChart {
-            /* margin: 20px; */
             padding: 20px;
-            /* padding-top: 30px; */
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #fff;
