@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Eleicao;
 use App\Models\Votacao;
-use App\Models\Eleitor;
+use App\Models\User;
 use App\Models\Chapa;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
@@ -152,11 +153,14 @@ class EleicaoController extends Controller
                     $matricula = $worksheet->getCellByColumnAndRow(2, $rowIndex)->getValue();
                     $telefone = $worksheet->getCellByColumnAndRow(3, $rowIndex)->getValue();
 
-                    Eleitor::create([
-                    'nome' => $nome,
+                    User::create([
+                    'name' => $nome,
                     'matricula' => $matricula,
                     'telefone' => $telefone,
                     'eleicao_id' => $id,
+                    'password' => Str::random(18),
+                    'profile' => 'User',
+                    'votou' => 0
                     ]);
                 }
             }

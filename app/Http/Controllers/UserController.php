@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -32,7 +33,7 @@ class UserController extends Controller
         'profile.required' => 'Perfil é obrigatório',
     ]);
         if ($validatedData['password'] = ''){
-            $validatedData['password'] = password();
+            $validatedData['password'] = Str::random(18);
         }
         // Encrypt the password
         $validatedData['password'] = Hash::make($validatedData['password']);
