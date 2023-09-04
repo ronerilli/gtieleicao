@@ -23,7 +23,6 @@
         }
         .navbar {
             border-radius: 0;
-            height: 50px;
         }
 
         .navbar-brand img {
@@ -141,40 +140,36 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-success" style="padding: 30px">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="/logo.png" alt="Logo da empresa" class="img-fluid" style="max-width: 150px; height: auto;">
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/logo.png" alt="Logo da empresa" class="img-fluid" style="max-width: 150px; height: auto;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
+                </li>
+            </ul>
             @auth
-                @if (auth()->user()->profile == 'admin' || auth()->user()->profile == 'power')
-                    <div class="collapse navbar-collapse" id="navbarNav" style="text-align: center">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">Home Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listar-eleicoes') }}">Manter Eleições</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listar-candidatos') }}">Manter Candidatos</a>
-                            </li>
-                        </ul>
-                @endif
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}">Sair</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="saudacao">{{ auth()->user()->name }}</div>
+                <ul class="navbar-nav ml-auto ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}">Sair</a>
+                    </li>
+                </ul>
             @endauth
         </div>
-    </nav>
+    </div>
+</nav>
     <button type="button" id="modalButton" style="display: none" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     </button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
