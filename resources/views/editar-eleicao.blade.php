@@ -60,24 +60,24 @@
         <button type="submit" class="btn btn-primary">Salvar</button>
         <a href="{{ route('listar-eleicoes') }}" class="btn btn-secondary">Cancelar</a>
         </form>
-        </div>
+    </div>
 
         
-        <script>
-            var num_chapas = {{ count($eleicao->chapas) }};
-            var chapas_container = document.getElementById('chapas_container');
+    <script>
+        var num_chapas = {{ count($eleicao->chapas) }};
+        var chapas_container = document.getElementById('chapas_container');
 
-            document.getElementById('adicionar_chapa').addEventListener('click', function() {
-                var nova_chapa = document.createElement('div');
-                nova_chapa.innerHTML = `
-                    <div class="form-group">
-                        <label for="nome_chapa_${num_chapas + 1}">Nome da Chapa ${num_chapas + 1}</label>
-                        <input type="text" class="form-control" id="nome_chapa_${num_chapas + 1}" name="nome_chapa_${num_chapas + 1}">
-                    </div>
-                `;
-                chapas_container.appendChild(nova_chapa);
-                num_chapas++;
-            });
-        </script>   
-
+        document.getElementById('adicionar_chapa').addEventListener('click', function() {
+            var nova_chapa = document.createElement('div');
+            nova_chapa.innerHTML = `
+                <div class="form-group">
+                    <label for="nome_chapa_${num_chapas + 1}">Nome da Chapa ${num_chapas + 1}</label>
+                    <input type="text" class="form-control" id="nome_chapa_${num_chapas + 1}" name="nome_chapa_${num_chapas + 1}">
+                </div>
+            `;
+            chapas_container.appendChild(nova_chapa);
+            num_chapas++;
+        });
+    </script>
+    <script src="{{ asset('js/cadastro-eleicoes.js') }}"></script>
 @endsection
