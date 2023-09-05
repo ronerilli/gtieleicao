@@ -22,11 +22,17 @@
             <td>{{ $eleicao->nome }}</td>
             <td>{{ $eleicao->orgao }}</td>
             <td>
-                <a href="{{ route('editar-eleicao', $eleicao->id) }}" class="btn btn-warning">Editar</a>
+                <a href="{{ route('editar-eleicao', $eleicao->id) }}" class="btn btn-warning">
+                    Editar
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
                 <form action="{{ route('excluir-eleicao', $eleicao->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="submit" class="btn btn-danger">
+                        Excluir
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </form>
             </td>
         </tr>
