@@ -6,11 +6,16 @@ use App\Models\Eleicao;
 use App\Models\Votacao;
 use App\Models\User;
 use App\Models\Chapa;
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+
 use Carbon\Carbon;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 
 use Illuminate\Http\Request;
 
@@ -143,9 +148,9 @@ class EleicaoController extends Controller
         if ($request->hasFile('eleitores')) {
             $spreadsheet = IOFactory::load($request->file('eleitores'));
             $worksheet = $spreadsheet->getActiveSheet();
-
             // Itera sobre as linhas da planilha
             foreach ($worksheet->getRowIterator() as $row) {
+
                 $rowIndex = $row->getRowIndex();
                 // Pula a primeira linha (cabeçalho)
                 if ($rowIndex > 1) {
@@ -153,15 +158,23 @@ class EleicaoController extends Controller
                     $matricula = $worksheet->getCellByColumnAndRow(2, $rowIndex)->getValue();
                     $telefone = $worksheet->getCellByColumnAndRow(3, $rowIndex)->getValue();
 
-                    User::create([
-                    'name' => $nome,
-                    'matricula' => $matricula,
-                    'telefone' => $telefone,
-                    'eleicao_id' => $id,
-                    'password' => Str::random(18),
-                    'profile' => 'User',
-                    'votou' => 0
-                    ]);
+                    if (strpos("+", $telefone) == false){
+                        $telefone = "+55" . $telefone;
+                    }
+
+                    if(User::where('name', $nome)->where('matricula', $matricula)->count() == 0){
+
+                        User::create([
+                            'name' => $nome,
+                            'matricula' => $matricula,
+                            'telefone' => $telefone,
+                            'eleicao_id' => $id,
+                            'password' => Hash::make(Str::random(21)),
+                            'profile' => 'User',
+                            'votou' => 0
+                        ]);
+                    }
+                    
                 }
             }
         }
