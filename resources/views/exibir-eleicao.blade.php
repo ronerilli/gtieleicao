@@ -15,7 +15,7 @@
                             @if ($candidato->chapa_id == $chapa->id)
                                     <div class="candidate-card card">
                                         <div class="candidate-photo">
-                                            <img src="/{{ $candidato->foto }}" alt="Candidate 4" class="card-img-top">
+                                            <img src="{{ $candidato->foto }}" alt="Candidate 4" class="card-img-top">
                                         </div>
                                         <div class="candidate-name"><h5>{{ $candidato->nome_completo }}<h5></div>
                                         <br>

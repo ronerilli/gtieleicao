@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,7 @@ use Illuminate\Http\Request;
 
 class EleicaoController extends Controller
 {
+
     public function cadastrar()
     {
         if (auth()->user()->profile != "admin" && auth()->user()->profile != "power"){

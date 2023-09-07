@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Candidato;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -69,11 +69,13 @@ class CandidatoController extends Controller
 
         // Salva os dados do candidato
         $candidatos = Candidato::create($validatedData);
+        $bucketName = config('filesystems.disks.s3.bucket');
 
         // Fazer o upload da foto, se presente
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('candidato_fotos');
-            $candidatos->foto = $fotoPath;
+            $uploadedFile = $request->file('foto');
+            $fotoPath = Storage::disk('s3')->put('candidato_fotos', $uploadedFile);
+            $candidatos->foto = "https://{$bucketName}.s3.amazonaws.com/{$fotoPath}";
             $candidatos->save();
         }
 
@@ -139,11 +141,13 @@ class CandidatoController extends Controller
 
         // Atualize os dados do candidato
         $candidato->update($validatedData);
+        $bucketName = config('filesystems.disks.s3.bucket');
 
         // Faça o upload da foto, se presente
         if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('candidato_fotos');
-            $candidato->foto = $fotoPath;
+            $uploadedFile = $request->file('foto');
+            $fotoPath = Storage::disk('s3')->put('candidato_fotos', $uploadedFile);
+            $candidato->foto = "https://{$bucketName}.s3.amazonaws.com/{$fotoPath}";
             $candidato->save();
         }
 
