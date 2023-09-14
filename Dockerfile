@@ -3,7 +3,7 @@ FROM php:8.2.9
 WORKDIR /opt/app/
 
 RUN rm -rf /etc/localtime && \
-    ln -s /usr/share/zoneinfo/Etc/GMT-3 /etc/localtime
+    ln -s /usr/share/zoneinfo/Etc/GMT+3 /etc/localtime
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
