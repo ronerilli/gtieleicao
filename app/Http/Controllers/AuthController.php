@@ -49,14 +49,22 @@ class AuthController extends Controller
                 // Autenticar o eleitor
                 Auth::loginUsingId($eleitor->id);
         
-                return redirect()->route('exibir-eleicao', $eleitor->eleicao_id)->with('success', 'Autenticação realizada com sucesso.');
+                return response()->json(
+                    array(
+                    'status' => 200,
+                    'redirectUrl' => "eleicao/" . $eleitor->eleicao_id)
+                );
             } 
             else {
                 return redirect()->back()->with('error', 'Eleitor não encontrado.');
             }
         } 
         else {
-            return redirect()->back()->with('error', 'Código SMS inválido');
+            return response()->json(
+                array(
+                'status' => 502,
+                'message' => "Por favor verifique o código.")
+            );
         }
     }
 

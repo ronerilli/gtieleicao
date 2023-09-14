@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 0; i < campos.length; i++){
                 postdata[campos[i].name] = campos[i].value
             }
-            console.log("bateu aqui")
             $.post("", postdata)
                 .done(function(data){
                     if (data.status == 201){
