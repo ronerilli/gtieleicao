@@ -69,13 +69,12 @@ class CandidatoController extends Controller
 
         // Salva os dados do candidato
         $candidatos = Candidato::create($validatedData);
-        $cloudfront = env('CLOUD_FRONT_ENDPOINT');
 
         // Fazer o upload da foto, se presente
         if ($request->hasFile('foto')) {
             $uploadedFile = $request->file('foto');
             $fotoPath = Storage::disk('s3')->put('candidato_fotos', $uploadedFile);
-            $candidatos->foto = "https://{$cloudfront}/{$fotoPath}";
+            $candidatos->foto = $fotoPath;
             $candidatos->save();
         }
 
@@ -141,13 +140,12 @@ class CandidatoController extends Controller
 
         // Atualize os dados do candidato
         $candidato->update($validatedData);
-        $cloudfront = env('CLOUD_FRONT_ENDPOINT');
 
         // Faça o upload da foto, se presente
         if ($request->hasFile('foto')) {
             $uploadedFile = $request->file('foto');
             $fotoPath = Storage::disk('s3')->put('candidato_fotos', $uploadedFile);
-            $candidato->foto = "https://{$cloudfront}/{$fotoPath}";
+            $candidato->foto = $fotoPath;
             $candidato->save();
         }
 

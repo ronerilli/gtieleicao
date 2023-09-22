@@ -23,7 +23,7 @@
                                     <div class="candidate-card card">
                                         <br>
                                         <div class="candidate-photo">
-                                            <img src="{{ $candidato->foto }}" alt="Candidate 4" class="card-img-top">
+                                            <img src="{{ Storage::disk('s3')->url($candidato->foto) }}" alt="Candidate 4" class="card-img-top">
                                         </div>
                                         <div class="candidate-name"><h5>{{ $candidato->nome_completo }}<h5></div>
                                         <br>
